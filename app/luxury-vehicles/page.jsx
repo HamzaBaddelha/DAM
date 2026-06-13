@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { Headset, Leaf, ShieldCheck, Star } from "lucide-react";
+import ThreeDHoverGallery from "@/components/lightswind/3d-hover-gallery";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { TextAnimate } from "@/components/ui/text-animate";
 import { content } from "@/data/content";
 
 const pageCopy = {
@@ -24,12 +27,40 @@ const pageCopy = {
     secondaryBody:
       "The platform supports a disciplined multi-brand automotive strategy with strong showroom identity, operational consistency, and a luxury service standard aligned with DAM Group Holding's broader investment philosophy.",
     backLabel: "Home Page",
+    galleryEyebrow: "Glallery-Vehicles",
+    galleryTitle: "Our Story",
+    galleryBody:
+      "We started this journey with a simple belief: driving isn’t just about getting from one place to another-it’s about the feeling of freedom, the joy of discovery, and the thrill of being behind the wheel. We recognized that drivers deserve more than just luxury-they deserve innovation, performance, and cutting-edge design. Inspired by Saudi Vision 2030, we wanted to be the ones to give drivers access to the future of automotive excellence.",
+    missionTitle: "Our Mession",
+    missionHeading: "Our Mission",
+    missionBody: [
+      "To provide exceptional automotive solutions that meet the needs of today while paving the way for a sustainable and innovative future.",
+      "We are dedicated to offering luxury, reliability, and unmatched service to every customer, ensuring that each journey begins and ends with trust and satisfaction."
+    ],
     featureDescription:
       "We are more than a car showroom. At Luxury Cars, we offer unique driving experiences, driven by quality, innovation, and a commitment to Vision 2030. Every journey with us is exceptional",
-    aboutBrandTitle: "About Jaecoo",
-    aboutBrandBody:
-      "Jaecoo is a modern brand under the Changan Group, designed specifically for durability and strength enthusiasts. Jaecoo vehicles withstand harsh conditions and challenging terrains, making them ideal for off-road driving and long adventures. Combining stability and powerful performance, Jaecoo offers a rugged design that ensures comfort and safety for drivers in all circumstances.",
-    aboutBrandCta: "Click Here"
+    valueCards: [
+      {
+        title: "Exclusive Dealer of Premium Brands",
+        body:
+          "As the authorized dealer for OMODA and JAECOO in the Kingdom, we guarantee access to the best models with exceptional performance."
+      },
+      {
+        title: "Commitment to Quality and Maintenance",
+        body:
+          "Our after-sales support is built around dependable maintenance, certified service standards, and long-term vehicle care."
+      },
+      {
+        title: "Sustainable Mobility Solutions",
+        body:
+          "We embrace forward-looking mobility with innovative models and solutions aligned with cleaner, smarter transportation."
+      },
+      {
+        title: "Exceptional Customer Service",
+        body:
+          "From first inquiry to ownership support, we provide a refined customer journey shaped by responsiveness, trust, and care."
+      }
+    ]
   },
   ar: {
     eyebrow: "قطاع السيارات",
@@ -48,25 +79,57 @@ const pageCopy = {
     secondaryBody:
       "يدعم هذا القطاع استراتيجية سيارات متعددة العلامات بانضباط تشغيلي وهوية عرض قوية ومعايير خدمة راقية تنسجم مع فلسفة مجموعة دام القابضة الاستثمارية.",
     backLabel: "الصفحة الرئيسية",
+    galleryEyebrow: "معرض العربات",
+    galleryTitle: "قصتنا",
+    galleryBody:
+      "بدأنا هذه الرحلة بإيمانٍ بسيط: أن القيادة ليست مجرد انتقال من مكان إلى آخر، بل هي إحساس بالحرية، ومتعة بالاكتشاف، وشغف لا يُضاهى خلف عجلة القيادة. لقد أدركنا أن السائقين يستحقون أكثر من مجرد الفخامة؛ فهم يستحقون الابتكار، والأداء العالي، والتصميم المتطور الذي يواكب المستقبل. وانطلاقًا من إلهام رؤية المملكة 2030، أردنا أن نكون الجسر الذي يمنح السائقين فرصة الوصول إلى مستقبل التميز في عالم السيارات.",
+    missionTitle: "رسالتنا",
+    missionHeading: "رسالتنا",
+    missionBody: [
+      "نسعى إلى تقديم حلول سيارات استثنائية تلبي احتياجات الحاضر، وتمهّد الطريق نحو مستقبل أكثر استدامة وابتكارًا.",
+      "نحن ملتزمون بتوفير الفخامة، والاعتمادية، والخدمة المتميزة لكل عميل، لنضمن أن تبدأ كل رحلة وتنتهي بثقة ورضا."
+    ],
     featureDescription:
       "نحن أكثر من مجرد صالة عرض سيارات. في Luxury Cars نقدم تجارب قيادة استثنائية تقودها الجودة والابتكار والالتزام برؤية 2030. كل رحلة معنا تجربة مميزة.",
-    aboutBrandTitle: "عن جايكو",
-    aboutBrandBody:
-      "جايكو علامة حديثة تحت مجموعة شانجان، صممت لعشاق المتانة والقوة. تتحمل مركبات جايكو الظروف القاسية والتضاريس الصعبة، ما يجعلها مناسبة للطرق الوعرة والرحلات الطويلة. وبفضل الجمع بين الثبات والأداء القوي، تقدم جايكو تصميما صلبا يضمن الراحة والأمان للسائقين في مختلف الظروف.",
-    aboutBrandCta: "اضغط هنا"
+    valueCards: [
+      {
+        title: "وكيل حصري لعلامات مميزة",
+        body:
+          "بصفتنا الوكيل المعتمد لعلامتي OMODA وJAECOO في المملكة، نضمن الوصول إلى أفضل الطرازات بأداء استثنائي."
+      },
+      {
+        title: "التزام بالجودة والصيانة",
+        body:
+          "نعتمد في خدمات ما بعد البيع على صيانة موثوقة، ومعايير خدمة معتمدة، ورعاية طويلة الأمد للمركبة."
+      },
+      {
+        title: "حلول تنقل مستدامة",
+        body:
+          "نتبنى مفهوم التنقل الحديث عبر طرازات وحلول مبتكرة تتماشى مع نقل أكثر كفاءة وذكاء واستدامة."
+      },
+      {
+        title: "خدمة عملاء استثنائية",
+        body:
+          "من أول تواصل وحتى خدمات ما بعد التملك، نقدم رحلة عميل راقية ترتكز على سرعة الاستجابة والثقة والاهتمام."
+      }
+    ]
   }
 };
+
+const galleryImages = [
+  "/images/j8-mountain.png",
+  "/images/j7.jpg",
+  "/images/omoda-red.jpg",
+  "/images/j8-interior.jpg",
+  "/images/icaur.jpg",
+];
+
+const valueCardIcons = [Star, ShieldCheck, Leaf, Headset];
 
 export default function LuxuryVehiclesPage() {
   const [lang, setLang] = useState("en");
   const t = content[lang];
   const copy = pageCopy[lang];
-  const jaecooPanels = [
-    { id: "panel-1", position: "18% center", overlay: "from-[#102742]/18 via-transparent to-transparent" },
-    { id: "panel-2", position: "42% center", overlay: "from-[#0b1628]/68 via-[#08111f]/28 to-[#102742]/18" },
-    { id: "panel-3", position: "62% center", overlay: "from-white/12 via-[#102742]/12 to-[#0b1628]/58" },
-    { id: "panel-4", position: "84% center", overlay: "from-[#102742]/10 via-transparent to-[#0b1628]/45" }
-  ];
 
   useEffect(() => {
     document.documentElement.lang = lang;
@@ -74,10 +137,10 @@ export default function LuxuryVehiclesPage() {
   }, [lang, t.dir]);
 
   return (
-    <main lang={lang} dir={t.dir} className="min-h-screen overflow-x-hidden bg-[#123152]">
+    <main lang={lang} dir={t.dir} className="min-h-screen overflow-x-hidden bg-[#0f171c]">
       <Navbar t={t} lang={lang} setLang={setLang} linkPrefix="/" homeHref="/" />
 
-      <section className="relative isolate min-h-screen overflow-hidden bg-[#282328] pt-24">
+      <section className="relative isolate h-[68vh] min-h-[420px] overflow-hidden bg-[#282328] pt-24 md:h-[74vh] md:min-h-[520px]">
         <video
           className="absolute inset-0 h-full w-full object-cover"
           autoPlay
@@ -89,11 +152,11 @@ export default function LuxuryVehiclesPage() {
           <source src="/images/Media3.mp4" type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-black/38" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.42),rgba(0,0,0,0.18)_42%,rgba(18,49,82,0.84)_100%)]" />
-        <div className="relative min-h-[calc(100vh-6rem)] w-full" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(0,0,0,0.42),rgba(0,0,0,0.18)_42%,rgba(15,23,28,0.9)_100%)]" />
+        <div className="relative h-full w-full" />
       </section>
 
-      <section className="bg-[#123152] px-4 pb-8 pt-8 sm:px-6 lg:px-8">
+      <section className="bg-[#0f171c] px-4 pb-8 pt-8 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <a
             href="/#sectors"
@@ -104,10 +167,10 @@ export default function LuxuryVehiclesPage() {
         </div>
       </section>
 
-      <section className="bg-[#123152] px-4 pb-24 pt-10 sm:px-6 lg:px-8">
+      <section className="bg-[#0f171c] px-4 pb-20 pt-8 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
-          <div className="relative overflow-hidden rounded-[2rem] border border-[#9B6F4C]/20 shadow-[0_30px_90px_rgba(0,0,0,0.28)]">
-            <div className="relative min-h-[420px] bg-[#0f2741] md:min-h-[560px]">
+          <div className="overflow-hidden rounded-[2rem] border border-[#9B6F4C]/20 shadow-[0_30px_90px_rgba(0,0,0,0.28)]">
+            <div className="relative min-h-[420px] bg-[#0f171c] md:min-h-[560px]">
               <Image
                 src="/images/luxuryvec-hero2.png"
                 alt={copy.title}
@@ -116,80 +179,200 @@ export default function LuxuryVehiclesPage() {
                 sizes="100vw"
                 className="object-contain object-center"
               />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(18,49,82,0.12),rgba(18,49,82,0.34)_55%,rgba(18,49,82,0.72)_100%)]" />
-              <div className="absolute inset-x-4 bottom-4 md:inset-x-8 md:bottom-8">
-                <div className="max-w-2xl rounded-[1.75rem] border border-white/18 bg-white/10 p-6 text-[#F4EFE6] shadow-[0_24px_60px_rgba(0,0,0,0.22)] backdrop-blur-2xl md:p-8">
-                  <p className="text-xs font-bold uppercase tracking-[0.32em] text-[#9B6F4C]">{copy.title}</p>
-                  <p className="mt-4 text-base leading-8 text-[#F4EFE6]/88 md:text-lg">
-                    {copy.featureDescription}
-                  </p>
-                </div>
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,28,0.12),rgba(15,23,28,0.38)_55%,rgba(15,23,28,0.82)_100%)]" />
+            </div>
+
+            <div className="bg-[#0f171c] p-4 md:p-8">
+              <div className="max-w-3xl rounded-[1.75rem] border border-white/18 bg-white/10 p-6 text-[#F4EFE6] shadow-[0_24px_60px_rgba(0,0,0,0.22)] backdrop-blur-2xl md:p-8">
+                <TextAnimate
+                  as="p"
+                  by="word"
+                  animation="blurInUp"
+                  once
+                  className="text-xs font-bold uppercase tracking-[0.32em] text-[#9B6F4C]"
+                >
+                  {copy.title}
+                </TextAnimate>
+                <TextAnimate
+                  as="p"
+                  by="word"
+                  animation="blurInUp"
+                  once
+                  className="mt-4 text-base leading-8 text-[#F4EFE6]/88 md:text-lg"
+                >
+                  {copy.featureDescription}
+                </TextAnimate>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="bg-[#123152] px-4 pb-50 sm:px-6 lg:px-8">
+      <section className="bg-[#0f171c] px-4 pb-12 sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-7xl items-center justify-center gap-6 overflow-visible md:gap-12">
-          <div className="relative h-[150px] w-[460px] md:h-[220px] md:w-[680px]">
+          <div className="relative h-[120px] w-[360px] md:h-[170px] md:w-[560px]">
             <Image
-              src="/images/company-full-logo.png"
-              alt="Luxury Vehicles full logo"
+              src="/images/logo-white.png"
+              alt="Luxury Vehicles white logo"
               fill
-              sizes="(min-width: 768px) 680px, 460px"
-              className="scale-[1.65] object-contain object-center md:scale-[1.85]"
+              sizes="(min-width: 768px) 560px, 360px"
+              className="object-contain object-center"
             />
           </div>
-          <div className="relative h-[140px] w-[210px] md:h-[190px] md:w-[300px]">
+
+          <div className="relative h-[110px] w-[170px] md:h-[155px] md:w-[250px]">
             <Image
               src="/images/2030.png"
               alt="Vision 2030 logo"
               fill
-              sizes="(min-width: 768px) 300px, 210px"
+              sizes="(min-width: 768px) 250px, 170px"
               className="object-contain object-center"
             />
           </div>
         </div>
       </section>
 
-      <section className="bg-[#123152] px-4 pb-24 sm:px-6 lg:px-8">
-        <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[0.82fr_1.38fr] lg:items-stretch">
-          <div className="flex flex-col justify-center px-2 pt-3 text-[#F4EFE6] lg:px-6">
-            <h2 className="text-4xl font-semibold leading-tight text-white md:text-5xl">{copy.aboutBrandTitle}</h2>
-            <p className="mt-8 max-w-md text-sm leading-7 text-[#F4EFE6]/82 md:text-base">
-              {copy.aboutBrandBody}
-            </p>
-            <a
-              href="#"
-              className="mt-10 inline-flex w-fit rounded-xl bg-white px-8 py-3 text-sm font-semibold text-[#123152] transition hover:bg-[#F4EFE6]"
+      <section className="relative overflow-hidden bg-[#0f171c] px-4 py-16 sm:px-6 lg:px-8 md:py-20">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(196,125,74,0.08),transparent_36%),radial-gradient(circle_at_bottom,rgba(196,125,74,0.06),transparent_32%)]" />
+        <div className="absolute left-0 top-0 h-40 w-40 bg-[url('/images/luxury-vec-transparent.png')] bg-contain bg-left-top bg-no-repeat opacity-[0.08] md:h-56 md:w-56" />
+        <div className="absolute bottom-0 right-0 h-40 w-40 scale-x-[-1] bg-[url('/images/luxury-vec-transparent.png')] bg-contain bg-right-bottom bg-no-repeat opacity-[0.08] md:h-56 md:w-56" />
+
+        <div className="relative mx-auto grid max-w-7xl gap-10 md:grid-cols-2 xl:grid-cols-4 xl:gap-8">
+          {copy.valueCards.map((item, index) => {
+            const Icon = valueCardIcons[index];
+
+            return (
+              <article
+                key={item.title}
+                className="mx-auto flex max-w-sm flex-col items-center text-center text-[#F4EFE6]"
+              >
+                <div className="mb-6 flex h-20 w-20 items-center justify-center text-[#C47D4A] md:h-24 md:w-24">
+                  <Icon className="h-14 w-14 stroke-[1.5] md:h-16 md:w-16" />
+                </div>
+
+                <TextAnimate
+                  as="h3"
+                  by="word"
+                  animation="blurInUp"
+                  once
+                  className="text-2xl font-semibold leading-tight text-[#C47D4A]"
+                >
+                  {item.title}
+                </TextAnimate>
+
+                <TextAnimate
+                  as="p"
+                  by="word"
+                  animation="blurInUp"
+                  once
+                  className="mt-5 text-base leading-8 text-[#F4EFE6]"
+                >
+                  {item.body}
+                </TextAnimate>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+      <section id="glallery-vehicles" className="bg-[#0f171c] px-4 pb-24 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl rounded-[2rem] border border-[#9B6F4C]/18 bg-[linear-gradient(180deg,rgba(244,239,230,0.04),rgba(15,23,28,0.24))] p-6 shadow-[0_28px_80px_rgba(0,0,0,0.24)] md:p-10">
+          <div className="mx-auto max-w-3xl text-center">
+            <TextAnimate
+              as="p"
+              by="word"
+              animation="blurInUp"
+              once
+              className="text-xs font-bold uppercase tracking-[0.34em] text-[#9B6F4C]"
             >
-              {copy.aboutBrandCta}
-            </a>
+              {copy.galleryEyebrow}
+            </TextAnimate>
+            <TextAnimate
+              as="h2"
+              by="word"
+              animation="blurInUp"
+              once
+              className="mt-4 font-serif text-3xl text-[#F4EFE6] md:text-5xl"
+            >
+              {copy.galleryTitle}
+            </TextAnimate>
+            <TextAnimate
+              as="p"
+              by="word"
+              animation="blurInUp"
+              once
+              className="mt-5 text-sm leading-7 text-[#F4EFE6] md:text-base md:leading-8"
+            >
+              {copy.galleryBody}
+            </TextAnimate>
           </div>
 
-          <div className="grid min-h-[520px] grid-cols-2 gap-3 md:grid-cols-4">
-            {jaecooPanels.map((panel, index) => (
-              <div
-                key={panel.id}
-                className="relative overflow-hidden rounded-[1.25rem] border border-white/10 bg-[#0b1628] shadow-[0_18px_50px_rgba(0,0,0,0.28)]"
-              >
-                <Image
-                  src="/images/luxuryvec-hero2.png"
-                  alt={`${copy.aboutBrandTitle} panel ${index + 1}`}
-                  fill
-                  sizes="(min-width: 1024px) 18vw, (min-width: 768px) 24vw, 50vw"
-                  className={index === 1 || index === 2 ? "object-cover blur-[2px]" : "object-cover"}
-                  style={{ objectPosition: panel.position }}
-                />
-                <div className={`absolute inset-0 bg-gradient-to-b ${panel.overlay}`} />
-                <div className="absolute inset-x-3 top-3 flex justify-start">
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-white/20 bg-black/20 text-sm text-white/90 backdrop-blur-md">
-                    ↔
-                  </span>
-                </div>
-              </div>
-            ))}
+          <div className="mt-10 overflow-hidden rounded-[1.75rem] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(155,111,76,0.16),transparent_35%),linear-gradient(180deg,#1b252c_0%,#11191f_55%,#0a0f12_100%)] p-3 md:p-5">
+            <ThreeDHoverGallery
+              images={galleryImages}
+              itemWidth={10}
+              itemHeight={13}
+              gap={0.85}
+              perspective={38}
+              hoverScale={9}
+              transitionDuration={1}
+              backgroundColor="#0f171c"
+              grayscaleStrength={0.95}
+              brightnessLevel={0.45}
+              activeWidth={28}
+              zDepth={7}
+              autoPlay={false}
+              className="min-h-[440px] rounded-[1.5rem] bg-transparent md:min-h-[540px]"
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#0f171c] px-4 pb-24 sm:px-6 lg:px-8">
+        <div className="mx-auto grid max-w-7xl items-center gap-8 overflow-hidden rounded-[2rem] border border-[#9B6F4C]/20 bg-[linear-gradient(180deg,rgba(244,239,230,0.04),rgba(15,23,28,0.18))] p-6 shadow-[0_28px_80px_rgba(0,0,0,0.24)] md:grid-cols-2 md:p-10 lg:gap-12">
+          <div className={t.dir === "rtl" ? "text-right" : "text-left"}>
+            <TextAnimate
+              as="p"
+              by="word"
+              animation="blurInUp"
+              once
+              className="text-xs font-bold uppercase tracking-[0.34em] text-[#9B6F4C]"
+            >
+              {copy.missionTitle}
+            </TextAnimate>
+            <TextAnimate
+              as="h2"
+              by="word"
+              animation="blurInUp"
+              once
+              className="mt-4 font-serif text-3xl text-[#F4EFE6] md:text-5xl"
+            >
+              {copy.missionHeading}
+            </TextAnimate>
+            <div className="mt-6 space-y-5 text-sm leading-8 text-[#F4EFE6] md:text-base">
+              {copy.missionBody.map((paragraph) => (
+                <TextAnimate
+                  key={paragraph}
+                  as="p"
+                  by="word"
+                  animation="blurInUp"
+                  once
+                >
+                  {paragraph}
+                </TextAnimate>
+              ))}
+            </div>
+          </div>
+
+          <div className="relative min-h-[320px] overflow-hidden rounded-[1.75rem] border border-white/10 bg-[#11191f] md:min-h-[460px]">
+            <Image
+              src="/images/jaecoo/jaecoo-hero.jpg"
+              alt={copy.missionHeading}
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,23,28,0.08),rgba(15,23,28,0.22)_55%,rgba(15,23,28,0.42)_100%)]" />
           </div>
         </div>
       </section>
