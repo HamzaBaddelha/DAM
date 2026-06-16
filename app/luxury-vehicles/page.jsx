@@ -90,7 +90,7 @@ const pageCopy = {
       "نحن ملتزمون بتوفير الفخامة، والاعتمادية، والخدمة المتميزة لكل عميل، لنضمن أن تبدأ كل رحلة وتنتهي بثقة ورضا."
     ],
     featureDescription:
-      "نحن أكثر من مجرد صالة عرض سيارات. في Luxury Cars نقدم تجارب قيادة استثنائية تقودها الجودة والابتكار والالتزام برؤية 2030. كل رحلة معنا تجربة مميزة.",
+      "نحن أكثر من مجرد معرض سيارات. في العربات الفاخرة، نقدم تجارب قيادة استثنائية تقودها الجودة والابتكار والالتزام برؤية المملكة 2030. مع كل رحلة معنا، تبدأ تجربة لا تُنسى.",
     valueCards: [
       {
         title: "وكيل حصري لعلامات مميزة",
@@ -185,19 +185,21 @@ export default function LuxuryVehiclesPage() {
             <div className="bg-[#0f171c] p-4 md:p-8">
               <div className="max-w-3xl rounded-[1.75rem] border border-white/18 bg-white/10 p-6 text-[#F4EFE6] shadow-[0_24px_60px_rgba(0,0,0,0.22)] backdrop-blur-2xl md:p-8">
                 <TextAnimate
+                  key={`${lang}-feature-title`}
                   as="p"
                   by="word"
                   animation="blurInUp"
-                  once
+                  startOnView={false}
                   className="text-xs font-bold uppercase tracking-[0.32em] text-[#9B6F4C]"
                 >
                   {copy.title}
                 </TextAnimate>
                 <TextAnimate
+                  key={`${lang}-feature-description`}
                   as="p"
                   by="word"
                   animation="blurInUp"
-                  once
+                  startOnView={false}
                   className="mt-4 text-base leading-8 text-[#F4EFE6]/88 md:text-lg"
                 >
                   {copy.featureDescription}

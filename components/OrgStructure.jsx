@@ -1,50 +1,517 @@
-import SectionTitle from "./SectionTitle";
+"use client";
 
-function Node({ children, tone = "light" }) {
+import { useEffect, useMemo, useState } from "react";
+import { Handle, Position, ReactFlow } from "@xyflow/react";
+import { AnimatedSVGEdge } from "./ui/AnimatedSVGEdge";
+import { TextAnimate } from "./ui/text-animate";
+
+function MobileNode({ children, tone = "light" }) {
   const className =
     tone === "dark"
-      ? "border-dam-bronze/45 bg-dam-dark text-dam-cream"
-      : "border-dam-bronze/25 bg-white/55 text-dam-dark";
-  return <div className={`border px-4 py-3 text-center text-sm font-semibold shadow-sm ${className}`}>{children}</div>;
+      ? "border-[#9B6F4C]/35 bg-[#efe2cf] text-[#111012] shadow-[0_16px_30px_rgba(0,0,0,0.08)]"
+      : "border-[#d7ccb9] bg-[#f7efe2] text-[#111012] shadow-[0_10px_24px_rgba(40,35,40,0.06)]";
+
+  return (
+    <div
+      className={`w-full rounded-none border px-4 py-4 text-center text-base font-semibold leading-7 ${className}`}
+    >
+      {children}
+    </div>
+  );
 }
 
-export default function OrgStructure({ t }) {
+function OrgNode({ data }) {
+  const isExecutive = data.variant === "executive";
+  const isDepartment = data.variant === "department";
+  const isCompact = data.size === "compact";
+
   return (
-    <section id="org-structure" className="scroll-mt-24 bg-dam-texture px-4 py-24 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <SectionTitle title={t.org.title} />
-        <div className="space-y-8">
-          <div className="mx-auto max-w-md">
-            <Node tone="dark">{t.org.board}</Node>
+    <div
+      className={[
+        "group relative overflow-hidden rounded-xl border transition-transform duration-300 hover:-translate-y-1",
+        isExecutive
+          ? isCompact
+            ? "w-[188px] border-[#9B6F4C]/55 bg-[#efe2cf] text-[#111012] shadow-[0_18px_32px_rgba(40,35,40,0.10)]"
+            : "w-[280px] border-[#9B6F4C]/55 bg-[#efe2cf] text-[#111012] shadow-[0_22px_40px_rgba(40,35,40,0.12)]"
+          : "",
+        data.variant === "unit"
+          ? isCompact
+            ? "w-[172px] border-[#9B6F4C]/35 bg-[#f7efe2]/95 text-[#111012] shadow-[0_16px_28px_rgba(40,35,40,0.08)]"
+            : "w-[280px] border-[#9B6F4C]/35 bg-[#f7efe2]/95 text-[#111012] shadow-[0_18px_32px_rgba(40,35,40,0.10)]"
+          : "",
+        isDepartment
+          ? isCompact
+            ? "w-[200px] border-[#9B6F4C]/35 bg-[#f7efe2]/95 text-[#111012] shadow-[0_18px_32px_rgba(40,35,40,0.08)]"
+            : "w-[300px] border-[#9B6F4C]/35 bg-[#f7efe2]/95 text-[#111012] shadow-[0_20px_36px_rgba(40,35,40,0.10)]"
+          : "",
+      ].join(" ")}
+    >
+      <Handle type="target" position={Position.Top} style={{ opacity: 0 }} />
+
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#9B6F4C] to-transparent opacity-90" />
+
+      {isDepartment ? (
+        <div>
+          <div className={isCompact ? "bg-[#eadcc6] px-4 py-3" : "bg-[#eadcc6] px-5 py-4"}>
+            <p className={isCompact ? "text-xs font-semibold leading-5 text-[#111012]" : "text-base font-semibold leading-6 text-[#111012]"}>
+              {data.title}
+            </p>
           </div>
-          <div className="mx-auto h-8 w-px bg-dam-bronze" />
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="h-px bg-[#9B6F4C]/50" />
+          <div className={isCompact ? "space-y-2 px-4 py-3" : "space-y-2 px-5 py-4"}>
+            {data.items.map((item) => (
+              <div
+                key={item}
+                className={[
+                  "rounded-lg border border-[#9B6F4C]/20 bg-[#f3e8d7] text-[#111012]",
+                  isCompact ? "px-2.5 py-2 text-[11px] leading-4" : "px-3 py-2 text-sm leading-5",
+                ].join(" ")}
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className={isCompact ? "px-4 py-3 text-center" : "px-5 py-4 text-center"}>
+          <p
+            className={
+              isExecutive
+                ? isCompact
+                  ? "text-sm font-semibold leading-5"
+                  : "text-lg font-semibold leading-6"
+                : isCompact
+                  ? "text-xs font-medium leading-5"
+                  : "text-base font-medium leading-6"
+            }
+          >
+            {data.title}
+          </p>
+        </div>
+      )}
+
+      <Handle type="source" position={Position.Bottom} style={{ opacity: 0 }} />
+    </div>
+  );
+}
+
+const nodeTypes = {
+  orgNode: OrgNode,
+};
+
+const edgeTypes = {
+  animatedSvg: AnimatedSVGEdge,
+};
+
+export default function OrgStructure({ t }) {
+  const [isMobile, setIsMobile] = useState(false);
+  const [financeDepartment, itDepartment, hrDepartment, marketingDepartment, customerExperienceDepartment] =
+    t.org.departments;
+
+  useEffect(() => {
+    const checkViewport = () => setIsMobile(window.innerWidth < 768);
+
+    checkViewport();
+    window.addEventListener("resize", checkViewport);
+
+    return () => window.removeEventListener("resize", checkViewport);
+  }, []);
+
+  const compactSize = isMobile ? "compact" : "regular";
+
+  const nodes = useMemo(() => {
+    if (isMobile) {
+      return [
+        {
+          id: "board",
+          type: "orgNode",
+          position: { x: 220, y: 20 },
+          data: { title: t.org.board, variant: "executive", size: compactSize },
+        },
+        {
+          id: "investment-unit",
+          type: "orgNode",
+          position: { x: 20, y: 145 },
+          data: { title: t.org.boardUnits[0], variant: "unit", size: compactSize },
+        },
+        {
+          id: "strategic-transformation-unit",
+          type: "orgNode",
+          position: { x: 220, y: 145 },
+          data: { title: t.org.boardUnits[1], variant: "unit", size: compactSize },
+        },
+        {
+          id: "internal-audit-unit",
+          type: "orgNode",
+          position: { x: 420, y: 145 },
+          data: { title: t.org.boardUnits[2], variant: "unit", size: compactSize },
+        },
+        {
+          id: "ceo",
+          type: "orgNode",
+          position: { x: 220, y: 285 },
+          data: { title: t.org.ceo, variant: "executive", size: compactSize },
+        },
+        {
+          id: "deputy-ceo",
+          type: "orgNode",
+          position: { x: 0, y: 410 },
+          data: { title: t.org.ceoUnits[0], variant: "unit", size: compactSize },
+        },
+        {
+          id: "ceo-office-assistant",
+          type: "orgNode",
+          position: { x: 180, y: 410 },
+          data: { title: t.org.ceoUnits[1], variant: "unit", size: compactSize },
+        },
+        {
+          id: "business-development-unit",
+          type: "orgNode",
+          position: { x: 360, y: 410 },
+          data: { title: t.org.ceoUnits[2], variant: "unit", size: compactSize },
+        },
+        {
+          id: "operations-unit",
+          type: "orgNode",
+          position: { x: 540, y: 410 },
+          data: { title: t.org.ceoUnits[3], variant: "unit", size: compactSize },
+        },
+        {
+          id: "finance-department",
+          type: "orgNode",
+          position: { x: 0, y: 560 },
+          data: {
+            title: financeDepartment[0],
+            items: financeDepartment.slice(1),
+            variant: "department",
+            size: compactSize,
+          },
+        },
+        {
+          id: "it-department",
+          type: "orgNode",
+          position: { x: 160, y: 560 },
+          data: {
+            title: itDepartment[0],
+            items: itDepartment.slice(1),
+            variant: "department",
+            size: compactSize,
+          },
+        },
+        {
+          id: "hr-department",
+          type: "orgNode",
+          position: { x: 320, y: 560 },
+          data: {
+            title: hrDepartment[0],
+            items: hrDepartment.slice(1),
+            variant: "department",
+            size: compactSize,
+          },
+        },
+        {
+          id: "marketing-department",
+          type: "orgNode",
+          position: { x: 480, y: 560 },
+          data: {
+            title: marketingDepartment[0],
+            items: marketingDepartment.slice(1),
+            variant: "department",
+            size: compactSize,
+          },
+        },
+        {
+          id: "customer-experience-department",
+          type: "orgNode",
+          position: { x: 640, y: 560 },
+          data: {
+            title: customerExperienceDepartment[0],
+            items: customerExperienceDepartment.slice(1),
+            variant: "department",
+            size: compactSize,
+          },
+        },
+      ];
+    }
+
+    return [
+      {
+        id: "board",
+        type: "orgNode",
+        position: { x: 640, y: 20 },
+        data: { title: t.org.board, variant: "executive", size: compactSize },
+      },
+      {
+        id: "investment-unit",
+        type: "orgNode",
+        position: { x: 120, y: 160 },
+        data: { title: t.org.boardUnits[0], variant: "unit", size: compactSize },
+      },
+      {
+        id: "strategic-transformation-unit",
+        type: "orgNode",
+        position: { x: 640, y: 160 },
+        data: { title: t.org.boardUnits[1], variant: "unit", size: compactSize },
+      },
+      {
+        id: "internal-audit-unit",
+        type: "orgNode",
+        position: { x: 1160, y: 160 },
+        data: { title: t.org.boardUnits[2], variant: "unit", size: compactSize },
+      },
+      {
+        id: "ceo",
+        type: "orgNode",
+        position: { x: 640, y: 310 },
+        data: { title: t.org.ceo, variant: "executive", size: compactSize },
+      },
+      {
+        id: "deputy-ceo",
+        type: "orgNode",
+        position: { x: 0, y: 450 },
+        data: { title: t.org.ceoUnits[0], variant: "unit", size: compactSize },
+      },
+      {
+        id: "ceo-office-assistant",
+        type: "orgNode",
+        position: { x: 430, y: 450 },
+        data: { title: t.org.ceoUnits[1], variant: "unit", size: compactSize },
+      },
+      {
+        id: "business-development-unit",
+        type: "orgNode",
+        position: { x: 860, y: 450 },
+        data: { title: t.org.ceoUnits[2], variant: "unit", size: compactSize },
+      },
+      {
+        id: "operations-unit",
+        type: "orgNode",
+        position: { x: 1290, y: 450 },
+        data: { title: t.org.ceoUnits[3], variant: "unit", size: compactSize },
+      },
+      {
+        id: "finance-department",
+        type: "orgNode",
+        position: { x: 0, y: 620 },
+        data: {
+          title: financeDepartment[0],
+          items: financeDepartment.slice(1),
+          variant: "department",
+          size: compactSize,
+        },
+      },
+      {
+        id: "it-department",
+        type: "orgNode",
+        position: { x: 330, y: 620 },
+        data: {
+          title: itDepartment[0],
+          items: itDepartment.slice(1),
+          variant: "department",
+          size: compactSize,
+        },
+      },
+      {
+        id: "hr-department",
+        type: "orgNode",
+        position: { x: 660, y: 620 },
+        data: {
+          title: hrDepartment[0],
+          items: hrDepartment.slice(1),
+          variant: "department",
+          size: compactSize,
+        },
+      },
+      {
+        id: "marketing-department",
+        type: "orgNode",
+        position: { x: 990, y: 620 },
+        data: {
+          title: marketingDepartment[0],
+          items: marketingDepartment.slice(1),
+          variant: "department",
+          size: compactSize,
+        },
+      },
+      {
+        id: "customer-experience-department",
+        type: "orgNode",
+        position: { x: 1320, y: 620 },
+        data: {
+          title: customerExperienceDepartment[0],
+          items: customerExperienceDepartment.slice(1),
+          variant: "department",
+          size: compactSize,
+        },
+      },
+    ];
+  }, [
+    compactSize,
+    customerExperienceDepartment,
+    financeDepartment,
+    hrDepartment,
+    isMobile,
+    itDepartment,
+    marketingDepartment,
+    t.org.board,
+    t.org.boardUnits,
+    t.org.ceo,
+    t.org.ceoUnits,
+  ]);
+
+  const edges = [
+    { id: "board-investment-unit", source: "board", target: "investment-unit", type: "animatedSvg" },
+    {
+      id: "board-strategic-transformation-unit",
+      source: "board",
+      target: "strategic-transformation-unit",
+      type: "animatedSvg",
+    },
+    {
+      id: "board-internal-audit-unit",
+      source: "board",
+      target: "internal-audit-unit",
+      type: "animatedSvg",
+    },
+    { id: "board-ceo", source: "board", target: "ceo", type: "animatedSvg" },
+    { id: "ceo-deputy-ceo", source: "ceo", target: "deputy-ceo", type: "animatedSvg" },
+    {
+      id: "ceo-ceo-office-assistant",
+      source: "ceo",
+      target: "ceo-office-assistant",
+      type: "animatedSvg",
+    },
+    {
+      id: "ceo-business-development-unit",
+      source: "ceo",
+      target: "business-development-unit",
+      type: "animatedSvg",
+    },
+    { id: "ceo-operations-unit", source: "ceo", target: "operations-unit", type: "animatedSvg" },
+    { id: "ceo-finance-department", source: "ceo", target: "finance-department", type: "animatedSvg" },
+    { id: "ceo-it-department", source: "ceo", target: "it-department", type: "animatedSvg" },
+    { id: "ceo-hr-department", source: "ceo", target: "hr-department", type: "animatedSvg" },
+    { id: "ceo-marketing-department", source: "ceo", target: "marketing-department", type: "animatedSvg" },
+    {
+      id: "ceo-customer-experience-department",
+      source: "ceo",
+      target: "customer-experience-department",
+      type: "animatedSvg",
+    },
+  ];
+
+  const subtitle =
+    t.dir === "rtl"
+      ? "هيكل حوكمة راقٍ صُمم لدعم تنويع الاستثمارات، والتميز التشغيلي، وبناء قيمة طويلة الأمد."
+      : "A premium structure designed to support investment diversification, operational excellence, and long-term value creation.";
+
+  if (isMobile) {
+    return (
+      <section id="org-structure" className="scroll-mt-24 bg-[#E6DCC8] py-20">
+        <div className="mx-auto max-w-7xl px-4">
+          <div className="mx-auto max-w-3xl text-center">
+            <TextAnimate
+              as="h2"
+              by="word"
+              animation="blurInUp"
+              once
+              className="text-4xl font-bold text-[#282328]"
+            >
+              {t.org.title}
+            </TextAnimate>
+          </div>
+
+          <div className="mt-10 space-y-4">
+            <MobileNode tone="dark">{t.org.board}</MobileNode>
+            <div className="mx-auto h-8 w-px bg-[#9B6F4C]/70" />
+
             {t.org.boardUnits.map((unit) => (
-              <Node key={unit}>{unit}</Node>
+              <MobileNode key={unit}>{unit}</MobileNode>
             ))}
-          </div>
-          <div className="mx-auto h-10 w-px bg-dam-bronze" />
-          <div className="mx-auto max-w-md">
-            <Node tone="dark">{t.org.ceo}</Node>
-          </div>
-          <div className="grid gap-4 md:grid-cols-4">
+
+            <div className="mx-auto h-8 w-px bg-[#9B6F4C]/70" />
+            <MobileNode tone="dark">{t.org.ceo}</MobileNode>
+
             {t.org.ceoUnits.map((unit) => (
-              <Node key={unit}>{unit}</Node>
+              <MobileNode key={unit}>{unit}</MobileNode>
             ))}
-          </div>
-          <div className="mx-auto h-10 w-px bg-dam-bronze" />
-          <div className="grid gap-5 lg:grid-cols-5">
-            {t.org.departments.map(([department, ...units]) => (
-              <article key={department} className="border border-dam-bronze/25 bg-white/35 p-4">
-                <Node tone="dark">{department}</Node>
-                <div className="mx-auto h-5 w-px bg-dam-bronze" />
-                <div className="space-y-3">
+
+            <div className="pt-2">
+              {t.org.departments.map(([department, ...units]) => (
+                <div key={department} className="mb-5 space-y-3">
+                  <MobileNode tone="dark">{department}</MobileNode>
                   {units.map((unit) => (
-                    <Node key={unit}>{unit}</Node>
+                    <MobileNode key={unit}>{unit}</MobileNode>
                   ))}
                 </div>
-              </article>
-            ))}
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section id="org-structure" className="scroll-mt-24 bg-[#E6DCC8] py-24 md:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <div className="mx-auto max-w-3xl text-center">
+          <TextAnimate
+            as="p"
+            by="word"
+            animation="blurInUp"
+            once
+            className="text-sm font-semibold uppercase tracking-[0.35em] text-[#9B6F4C]"
+          >
+            {t.org.title}
+          </TextAnimate>
+          <TextAnimate
+            as="h2"
+            by="word"
+            animation="blurInUp"
+            once
+            className="mt-4 text-4xl font-bold text-[#282328] md:text-6xl"
+          >
+            {t.dir === "rtl" ? "خريطة الحوكمة التنفيذية" : "Executive Governance Map"}
+          </TextAnimate>
+          <TextAnimate
+            as="p"
+            by="word"
+            animation="blurInUp"
+            once
+            className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[#282328]/75"
+          >
+            {subtitle}
+          </TextAnimate>
+        </div>
+
+        <div className="relative mt-14 h-[860px] w-full overflow-visible bg-transparent sm:h-[900px] md:h-[760px]">
+          <div className="pointer-events-none absolute inset-0">
+            <div className="absolute left-[8%] top-[10%] h-44 w-44 rounded-full bg-[#9B6F4C]/10 blur-3xl" />
+            <div className="absolute right-[12%] top-[22%] h-56 w-56 rounded-full bg-[#9B6F4C]/8 blur-3xl" />
+            <div className="absolute bottom-[12%] left-[38%] h-64 w-64 rounded-full bg-[#F4EFE6]/20 blur-3xl" />
+          </div>
+
+          <div className="h-full w-full">
+            <ReactFlow
+              nodes={nodes}
+              edges={edges}
+              nodeTypes={nodeTypes}
+              edgeTypes={edgeTypes}
+              fitView
+              fitViewOptions={isMobile ? { padding: 0.14, minZoom: 0.2, maxZoom: 0.9 } : { padding: 0.07, maxZoom: 1.1 }}
+              nodesDraggable={false}
+              nodesConnectable={false}
+              elementsSelectable={false}
+              panOnDrag={false}
+              zoomOnScroll={false}
+              zoomOnPinch={false}
+              zoomOnDoubleClick={false}
+              preventScrolling={false}
+              proOptions={{ hideAttribution: true }}
+              className="bg-transparent"
+            >
+            </ReactFlow>
           </div>
         </div>
       </div>

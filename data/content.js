@@ -81,7 +81,7 @@ export const content = {
           sector: "Automotive",
           company: "Luxury Vehicles",
           body:
-            "Saudi Arabia's authorized agent and distributor for Chery, Jaecoo, Omoda, and iCAR. Al-Arabat Al-Fakhira delivers a seamless automotive retail experience underpinned by quality, service, and customer excellence. The ecosystem includes Badlha for vehicle trade-in and purchase and V-Lux for accessories and customization.",
+            "Saudi Arabia's authorized agent and distributor for Chery, Jaecoo, Omoda, and ICAUR. Al-Arabat Al-Fakhira delivers a seamless automotive retail experience underpinned by quality, service, and customer excellence. The ecosystem includes Badlha for vehicle trade-in and purchase and V-Lux for accessories and customization.",
         },
         {
           sector: "Contracting",
@@ -147,7 +147,7 @@ export const content = {
       sectors: "Sectors",
       contact: "Contact",
       address: "Riyadh, Saudi Arabia",
-      email: "info@example.com",
+      email: "info@daamco.sa",
       phone: "+966 XX XXX XXXX",
     },
   },
@@ -295,7 +295,7 @@ export const content = {
       sectors: "القطاعات",
       contact: "تواصل",
       address: "الرياض، المملكة العربية السعودية",
-      email: "info@example.com",
+      email: "info@daamco.sa",
       phone: "+966 XX XXX XXXX",
     },
   },
