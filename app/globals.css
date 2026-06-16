@@ -2,7 +2,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
 :root {
   color-scheme: light;
   --font-body-current: var(--font-project-english), "Times New Roman", Georgia, serif;

@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function Footer({ t }) {
   return (
-    <footer className="bg-dam-dark px-4 py-14 text-dam-cream sm:px-6 lg:px-8">
+    <footer className="bg-gradient-to-b from-[#241d1c] via-[#1d1716] to-dam-dark px-4 py-14 text-dam-cream sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
         <div>
           <div className="relative h-16 w-56">
@@ -43,7 +43,6 @@ export default function Footer({ t }) {
             <a href={`mailto:${t.footer.email}`} className="hover:text-dam-bronze">
               {t.footer.email}
             </a>
-            <span>{t.footer.phone}</span>
           </div>
         </div>
       </div>
