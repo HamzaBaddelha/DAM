@@ -134,7 +134,7 @@ export default function Navbar({ t, lang, setLang, linkPrefix = "", homeHref = "
     setLang((currentLang) => (currentLang === "en" ? "ar" : "en"));
     setOpen(false);
   };
-  const resolveHref = (href) => `${linkPrefix}${href}`;
+  const resolveHref = (href) => (href.startsWith("/") ? href : `${linkPrefix}${href}`);
   const openContactModal = () => {
     setOpen(false);
     setContactOpen(true);

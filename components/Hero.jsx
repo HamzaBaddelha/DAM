@@ -52,7 +52,9 @@ export default function Hero({ t }) {
           >
             {t.hero.subtitle}
           </TextAnimate>
-          <p className="mt-6 max-w-3xl text-base leading-8 text-dam-cream/82 sm:text-lg">{t.hero.body}</p>
+          <TextAnimate animation="blurInUp" as="p" by="word" className="mt-6 max-w-3xl text-base leading-8 text-dam-cream/82 sm:text-lg">
+            {t.hero.body}
+          </TextAnimate>
 
           <div className="mt-9 flex flex-wrap gap-3">
             <a

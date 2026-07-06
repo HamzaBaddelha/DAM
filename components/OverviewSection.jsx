@@ -26,7 +26,9 @@ export default function OverviewSection({ t }) {
               <TextAnimate animation="blurInUp" as="h3" by="word" className="mt-8 text-xl font-semibold text-dam-dark">
                 {title}
               </TextAnimate>
-              <p className="mt-4 text-sm leading-7 text-dam-dark/68">{body}</p>
+              <TextAnimate animation="blurInUp" as="p" by="word" className="mt-4 text-sm leading-7 text-dam-dark/68">
+                {body}
+              </TextAnimate>
             </article>
           ))}
         </div>

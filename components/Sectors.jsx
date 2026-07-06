@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { motion } from "motion/react";
+import { TextAnimate } from "@/components/ui/text-animate";
 
 const imageVariants = {
   hiddenLeft: { opacity: 0, x: -100 },
@@ -29,8 +30,8 @@ const sectorImages = {
   "مقاعد": "/images/maaqed.png",
   "First Lawyer Group": "/images/First-Lawyer.png",
   "شركة المحامي الأول للاستشارات القانونية": "/images/First-Lawyer.png",
-  "Markh Restaurant": "/images/marakh.png",
-  "مطعم مرخ": "/images/marakh.png",
+  "Markh Restaurant": "/images/realistic/3.jpeg",
+  "مطعم مرخ": "/images/realistic/3.jpeg",
   "Unwan AIDiyafa عنوان الضيافه": "/images/Unwan-AIDiyafa.png",
   "عنوان الضيافه": "/images/Unwan-AIDiyafa.png"
 };
@@ -53,12 +54,12 @@ export default function Sectors({ t }) {
               priority={false}
             />
           </div>
-          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#9B6F4C]">
+          <TextAnimate as="p" by="word" animation="blurInUp" className="text-sm font-semibold uppercase tracking-[0.35em] text-[#9B6F4C]">
             {t.sectors.title}
-          </p>
-          <h2 className="mt-4 text-4xl font-bold text-[#282328] md:text-6xl">
+          </TextAnimate>
+          <TextAnimate as="h2" by="word" animation="blurInUp" className="mt-4 text-4xl font-bold text-[#282328] md:text-6xl">
             {t.dir === "rtl" ? "قطاعاتنا الاستثمارية" : "Our Investment Sectors"}
-          </h2>
+          </TextAnimate>
         </div>
 
         <div className="space-y-10 md:space-y-14">
@@ -67,7 +68,16 @@ export default function Sectors({ t }) {
             const imageSrc = sectorImages[item.company] || "/images/logo.png";
             const hasLuxuryWatermark =
               item.company === "Luxury Vehicles" || item.company === "العربات الفاخرة";
-            const learnMoreHref = hasLuxuryWatermark ? "/luxury-vehicles" : "#company-details";
+            const isMarkhCompany = item.company === "Markh Restaurant" || item.company === "مطعم مرخ";
+            const isUnwanCompany =
+              item.company === "Unwan AIDiyafa عنوان الضيافه" || item.company === "عنوان الضيافه";
+            const learnMoreHref = hasLuxuryWatermark
+              ? "/luxury-vehicles"
+              : isMarkhCompany
+                ? "/markh"
+                : isUnwanCompany
+                  ? "/unwan-aidiyafa"
+                  : "#company-details";
 
             return (
               <article
@@ -119,13 +129,13 @@ export default function Sectors({ t }) {
                       {item.sector}
                     </p>
 
-                    <h3 className="mt-5 text-3xl font-bold text-[#282328] md:text-4xl">
+                    <TextAnimate as="h3" by="word" animation="blurInUp" className="mt-5 text-3xl font-bold text-[#282328] md:text-4xl">
                       {item.company}
-                    </h3>
+                    </TextAnimate>
 
-                    <p className="mt-6 max-w-xl text-base leading-8 text-[#282328]/75">
+                    <TextAnimate as="p" by="word" animation="blurInUp" className="mt-6 max-w-xl text-base leading-8 text-[#282328]/75">
                       {item.body}
-                    </p>
+                    </TextAnimate>
 
                     <a
                       href={learnMoreHref}

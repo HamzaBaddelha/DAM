@@ -11,17 +11,18 @@ export const content = {
       { label: "Sectors", href: "#sectors" },
       { label: "Company Details", href: "#company-details" },
       { label: "Organizational Structure", href: "#org-structure" },
+      { label: "News", href: "/news" },
     ],
     hero: {
       eyebrow: "Saudi investment holding group",
       title: "DAM GROUP HOLDING",
       subtitle: "Dam... Because Impact Endures",
       body:
-        "In the midst of a pivotal historical moment in the Kingdom of Saudi Arabia under Vision 2030, Dam Group Holding was born in 2018 as a firm investment pillar combining ambition and professionalism. The group launched with the First Lawyer Company in law and legal advisory, and achievements followed successively. It then expanded into real estate, food, hospitality, contracting, and automotive sectors.",
+        "In the midst of a pivotal historical moment in the Kingdom of Saudi Arabia under Vision 2030, Dam Group Holding was born in 2022 as a firm investment pillar combining ambition and professionalism. The group launched with the First Lawyer Company in law and legal advisory, and achievements followed successively. It then expanded into real estate, food, hospitality, contracting, and automotive sectors.",
       primaryCta: "Explore Sectors",
       secondaryCta: "Our Story",
       stats: [
-        ["Founded", "2018"],
+        ["Founded", "2022"],
         ["Headquarters", "Riyadh, Saudi Arabia"],
         ["Sectors", "6+"],
         ["Vision", "2030 aligned"],
@@ -119,7 +120,7 @@ export const content = {
       title: "Company Details",
       rows: [
         ["Company Name", "DAM GROUP HOLDING"],
-        ["Founded", "2018"],
+        ["Founded", "2022"],
         ["Headquarters", "Riyadh, Saudi Arabia"],
         ["Business Type", "Holding / Investment Group"],
         ["Strategic Direction", "Investment diversification and generational value"],
@@ -163,17 +164,18 @@ export const content = {
       { label: "القطاعات", href: "#sectors" },
       { label: "تفاصيل الشركة", href: "#company-details" },
       { label: "الهيكل التنظيمي", href: "#org-structure" },
+      { label: "الأخبار", href: "/news" },
     ],
     hero: {
       eyebrow: "مجموعة سعودية قابضة للاستثمار",
       title: "مجموعة دام القابضة",
       subtitle: "دام... لأن الأثر يدوم",
       body:
-        "في خضم مرحلة تاريخية فارقة تشهدها المملكة العربية السعودية في ظل رؤية 2030، ولدت مجموعة دام القابضة عام 2018 لتكون ركيزة استثمارية راسخة تجمع بين الطموح والمهنية. انطلقت المجموعة مع شركة المحامي الأول في مجال القانون والاستشارات القانونية، ثم توسعت إلى قطاعات العقارات، الأغذية، الضيافة، المقاولات، والسيارات.",
+        "في خضم مرحلة تاريخية فارقة تشهدها المملكة العربية السعودية في ظل رؤية 2030، ولدت مجموعة دام القابضة عام 2022 لتكون ركيزة استثمارية راسخة تجمع بين الطموح والمهنية. انطلقت المجموعة مع شركة المحامي الأول في مجال القانون والاستشارات القانونية، ثم توسعت إلى قطاعات العقارات، الأغذية، الضيافة، المقاولات، والسيارات.",
       primaryCta: "استكشف القطاعات",
       secondaryCta: "قصتنا",
       stats: [
-        ["التأسيس", "2018"],
+        ["التأسيس", "2022"],
         ["المقر", "الرياض، السعودية"],
         ["القطاعات", "+6"],
         ["الرؤية", "متوافقة مع 2030"],
@@ -267,7 +269,7 @@ export const content = {
       title: "تفاصيل الشركة",
       rows: [
         ["اسم الشركة", "مجموعة دام القابضة"],
-        ["التأسيس", "2018"],
+        ["التأسيس", "2022"],
         ["المقر الرئيسي", "الرياض، المملكة العربية السعودية"],
         ["نوع النشاط", "مجموعة قابضة / استثمارية"],
         ["التوجه الاستراتيجي", "تنويع الاستثمار وبناء قيمة عبر الأجيال"],

@@ -1,6 +1,8 @@
 import Image from "next/image";
 
-export default function Footer({ t }) {
+export default function Footer({ t, linkPrefix = "" }) {
+  const resolveHref = (href) => (href.startsWith("/") ? href : `${linkPrefix}${href}`);
+
   return (
     <footer className="bg-gradient-to-b from-[#241d1c] via-[#1d1716] to-dam-dark px-4 py-14 text-dam-cream sm:px-6 lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr]">
@@ -20,7 +22,7 @@ export default function Footer({ t }) {
           <h3 className="font-semibold text-dam-bronze">{t.footer.quickLinks}</h3>
           <div className="mt-4 grid gap-2">
             {t.nav.slice(0, 4).map((item) => (
-              <a key={item.href} href={item.href} className="text-sm text-dam-cream/70 hover:text-dam-bronze">
+              <a key={item.href} href={resolveHref(item.href)} className="text-sm text-dam-cream/70 hover:text-dam-bronze">
                 {item.label}
               </a>
             ))}

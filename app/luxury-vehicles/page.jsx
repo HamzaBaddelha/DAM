@@ -379,7 +379,7 @@ export default function LuxuryVehiclesPage() {
         </div>
       </section>
 
-      <Footer t={t} />
+      <Footer t={t} linkPrefix="/" />
     </main>
   );
 }

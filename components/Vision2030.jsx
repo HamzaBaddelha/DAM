@@ -1,5 +1,6 @@
 import SectionTitle from "./SectionTitle";
 import { PixelImage } from "@/components/ui/pixel-image";
+import { TextAnimate } from "@/components/ui/text-animate";
 
 export default function Vision2030({ t }) {
   return (
@@ -22,7 +23,9 @@ export default function Vision2030({ t }) {
         </div>
         <div>
           <SectionTitle title={t.vision2030.title} align="start" tone="dark" />
-          <p className="text-lg leading-9 text-dam-cream/78">{t.vision2030.body}</p>
+          <TextAnimate as="p" by="word" animation="blurInUp" className="text-lg leading-9 text-dam-cream/78">
+            {t.vision2030.body}
+          </TextAnimate>
           <div className="mt-9 space-y-4">
             {t.vision2030.points.map((point) => (
               <div key={point} className="flex items-center gap-4">
