@@ -216,7 +216,7 @@ const projects = [
     },
   },
   {
-    image: "/images/image.webp",
+    image: "/images/unwan-aidiyafa/DSC02857.jpg",
     units: 34,
     name: { en: "Matera Al Malqa", ar: "ماتيرا الملقا" },
     type: { en: "Furnished Residential", ar: "سكن مفروش" },
@@ -227,7 +227,7 @@ const projects = [
     },
   },
   {
-    image: "/images/realistic/Untitled design (23).png",
+    image: "/images/unwan-aidiyafa/DSC02806.jpg",
     units: 36,
     name: { en: "Matera Al Sulaymaniyah", ar: "ماتيرا السليمانية" },
     type: { en: "Furnished Residential", ar: "سكن مفروش" },
