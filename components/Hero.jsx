@@ -20,6 +20,8 @@ export default function Hero({ t }) {
         <div className="max-w-4xl">
           <TextAnimate
             animation="blurIn"
+            dir={t.dir}
+            locale={t.langLabel}
             as="span"
             by="word"
             className="mb-7 inline-flex border border-dam-bronze/50 bg-dam-bronze/15 px-4 py-2 text-xs font-bold uppercase tracking-[0.24em] text-dam-beige"
@@ -29,7 +31,7 @@ export default function Hero({ t }) {
           <div className="relative mb-6 h-24 w-full max-w-[520px] sm:h-32">
             <Image
               src="/images/logo.png"
-              alt="DAM Group Holding"
+              alt={t.hero.logoAlt}
               fill
               priority
               sizes="(min-width: 640px) 520px, 90vw"
@@ -38,6 +40,8 @@ export default function Hero({ t }) {
           </div>
           <TextAnimate
             animation="blurInUp"
+            dir={t.dir}
+            locale={t.langLabel}
             as="h1"
             by="word"
             className="max-w-3xl text-5xl font-semibold leading-[1.02] text-white sm:text-6xl lg:text-7xl"
@@ -46,13 +50,15 @@ export default function Hero({ t }) {
           </TextAnimate>
           <TextAnimate
             animation="blurIn"
+            dir={t.dir}
+            locale={t.langLabel}
             as="p"
             by="word"
             className="mt-5 text-2xl font-medium text-dam-bronze sm:text-3xl"
           >
             {t.hero.subtitle}
           </TextAnimate>
-          <TextAnimate animation="blurInUp" as="p" by="word" className="mt-6 max-w-3xl text-base leading-8 text-dam-cream/82 sm:text-lg">
+          <TextAnimate animation="blurInUp" dir={t.dir} locale={t.langLabel} as="p" by="word" className={`mt-6 max-w-3xl text-dam-cream/82 ${t.dir === "rtl" ? "text-2xl leading-[1.9] md:text-3xl md:leading-[1.9]" : "text-base leading-8 sm:text-lg"}`}>
             {t.hero.body}
           </TextAnimate>
 

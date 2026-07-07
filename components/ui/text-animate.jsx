@@ -55,6 +55,8 @@ const animationMap = {
 
 const TextAnimateBase = ({
   children,
+  animationKey,
+  locale,
   delay = 0,
   duration = 0.85,
   variants,
@@ -72,10 +74,14 @@ const TextAnimateBase = ({
   const text = typeof children === "string" ? children : String(children);
   const splitType = splitTypeMap[by] || "words";
   const motionPreset = variants ? { from: variants.hidden || {}, to: variants.show || {} } : animationMap[animation] || animationMap.fadeIn;
+  const dir = props.dir;
+  const resetKey = [animationKey, locale, dir, splitType, animation, text].filter(Boolean).join("::");
 
   return (
     <SplitText
+      key={resetKey}
       text={text}
+      animationKey={resetKey}
       tag={Component}
       className={className}
       delay={delay * 1000}

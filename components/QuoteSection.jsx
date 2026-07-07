@@ -24,6 +24,8 @@ export default function QuoteSection({ t }) {
                 <TextAnimate
                   key={line}
                   animation="blurInUp"
+                  dir={t.dir}
+                  locale={t.langLabel}
                   as="p"
                   by="word"
                   className="mb-5 text-3xl font-semibold leading-tight text-[#F4EFE6] last:mb-0 md:text-5xl"

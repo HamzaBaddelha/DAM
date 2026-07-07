@@ -144,6 +144,7 @@ export function AngledSlider({
   return (
     <div
       className={cn("relative w-full overflow-hidden py-8 [perspective:1000px]", className)}
+      dir="ltr"
       style={{ height: containerHeight }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

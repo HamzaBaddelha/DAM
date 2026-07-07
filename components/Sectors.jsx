@@ -21,20 +21,14 @@ const textVariants = {
   }
 };
 
-const sectorImages = {
-  "Luxury Vehicles": "/images/luxuryvec.png",
-  "العربات الفاخرة": "/images/luxuryvec.png",
-  "Shatbah Contracting": "/images/shatbah.png",
-  "شركة شاطبية للمقاولات": "/images/shatbah.png",
-  Maqaed: "/images/maaqed.png",
-  "مقاعد": "/images/maaqed.png",
-  "First Lawyer Group": "/images/First-Lawyer.png",
-  "شركة المحامي الأول للاستشارات القانونية": "/images/First-Lawyer.png",
-  "Markh Restaurant": "/images/realistic/3.jpeg",
-  "مطعم مرخ": "/images/realistic/3.jpeg",
-  "Unwan AIDiyafa عنوان الضيافه": "/images/Unwan-AIDiyafa.png",
-  "عنوان الضيافه": "/images/Unwan-AIDiyafa.png"
-};
+const sectorAssets = [
+  { image: "/images/luxuryvec.png", href: "/luxury-vehicles", hasLuxuryWatermark: true },
+  { image: "/images/shatbah.png", href: "#company-details" },
+  { image: "/images/maaqed.png", href: "#company-details" },
+  { image: "/images/First-Lawyer.png", href: "#company-details" },
+  { image: "/images/realistic/3.jpeg", href: "/markh" },
+  { image: "/images/Unwan-AIDiyafa.png", href: "/unwan-aidiyafa" },
+];
 
 export default function Sectors({ t }) {
   return (
@@ -47,37 +41,27 @@ export default function Sectors({ t }) {
           <div className="mx-auto mb-8 flex max-w-3xl justify-center">
             <Image
               src="/images/logo.png"
-              alt="DAM Group Holding logo"
+              alt={t.sectors.logoAlt}
               width={260}
               height={104}
               className="h-auto w-full max-w-[260px] object-contain"
               priority={false}
             />
           </div>
-          <TextAnimate as="p" by="word" animation="blurInUp" className="text-sm font-semibold uppercase tracking-[0.35em] text-[#9B6F4C]">
+          <TextAnimate as="p" by="word" animation="blurInUp" dir={t.dir} locale={t.langLabel} className="text-sm font-semibold uppercase tracking-[0.35em] text-[#9B6F4C]">
             {t.sectors.title}
           </TextAnimate>
-          <TextAnimate as="h2" by="word" animation="blurInUp" className="mt-4 text-4xl font-bold text-[#282328] md:text-6xl">
-            {t.dir === "rtl" ? "قطاعاتنا الاستثمارية" : "Our Investment Sectors"}
+          <TextAnimate as="h2" by="word" animation="blurInUp" dir={t.dir} locale={t.langLabel} className="mt-4 text-4xl font-bold text-[#282328] md:text-6xl">
+            {t.sectors.heading}
           </TextAnimate>
         </div>
 
         <div className="space-y-10 md:space-y-14">
           {t.sectors.items.map((item, index) => {
             const isReversed = index % 2 === 1;
-            const imageSrc = sectorImages[item.company] || "/images/logo.png";
-            const hasLuxuryWatermark =
-              item.company === "Luxury Vehicles" || item.company === "العربات الفاخرة";
-            const isMarkhCompany = item.company === "Markh Restaurant" || item.company === "مطعم مرخ";
-            const isUnwanCompany =
-              item.company === "Unwan AIDiyafa عنوان الضيافه" || item.company === "عنوان الضيافه";
-            const learnMoreHref = hasLuxuryWatermark
-              ? "/luxury-vehicles"
-              : isMarkhCompany
-                ? "/markh"
-                : isUnwanCompany
-                  ? "/unwan-aidiyafa"
-                  : "#company-details";
+            const asset = sectorAssets[index] || { image: "/images/logo.png", href: "#company-details" };
+            const imageSrc = asset.image;
+            const learnMoreHref = asset.href;
 
             return (
               <article
@@ -118,7 +102,7 @@ export default function Sectors({ t }) {
                       isReversed ? "md:order-1" : "md:order-2"
                     }`}
                   >
-                    {hasLuxuryWatermark ? (
+                    {asset.hasLuxuryWatermark ? (
                       <div
                         aria-hidden="true"
                         className="pointer-events-none absolute inset-y-0 right-0 w-full bg-[url('/images/luxury-vec.png')] bg-[length:clamp(200px,34vw,420px)] bg-[position:right_center] bg-no-repeat opacity-[0.16]"
@@ -129,11 +113,11 @@ export default function Sectors({ t }) {
                       {item.sector}
                     </p>
 
-                    <TextAnimate as="h3" by="word" animation="blurInUp" className="mt-5 text-3xl font-bold text-[#282328] md:text-4xl">
+                    <TextAnimate as="h3" by="word" animation="blurInUp" dir={t.dir} locale={t.langLabel} className="mt-5 text-3xl font-bold text-[#282328] md:text-4xl">
                       {item.company}
                     </TextAnimate>
 
-                    <TextAnimate as="p" by="word" animation="blurInUp" className="mt-6 max-w-xl text-base leading-8 text-[#282328]/75">
+                    <TextAnimate as="p" by="word" animation="blurInUp" dir={t.dir} locale={t.langLabel} className={`mt-6 max-w-xl text-[#282328]/75 ${t.dir === "rtl" ? "text-2xl leading-[1.9] md:text-3xl md:leading-[1.9]" : "text-base leading-8"}`}>
                       {item.body}
                     </TextAnimate>
 

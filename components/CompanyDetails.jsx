@@ -5,7 +5,7 @@ export default function CompanyDetails({ t }) {
   return (
     <section id="company-details" className="scroll-mt-24 bg-dam-dark px-4 py-24 text-dam-cream sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
-        <SectionTitle title={t.details.title} tone="dark" />
+        <SectionTitle title={t.details.title} tone="dark" dir={t.dir} locale={t.langLabel} />
         <GlassCard className="p-4 sm:p-6">
           <dl>
             {t.details.rows.map(([label, value]) => (

@@ -194,6 +194,9 @@ export default function MarkhPage() {
   const [lang, setLang] = useState("en");
   const t = content[lang];
   const copy = pageCopy[lang];
+  const textLocaleProps = { dir: t.dir, locale: lang };
+  const descriptionTextClass =
+    lang === "ar" ? "text-2xl leading-[1.9] md:text-3xl md:leading-[1.9]" : "";
   const pageRef = useRef(null);
   const heroMediaRef = useRef(null);
 
@@ -247,7 +250,7 @@ export default function MarkhPage() {
     }, pageRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [lang, t.dir]);
 
   return (
     <main ref={pageRef} lang={lang} dir={t.dir} className="min-h-screen overflow-x-hidden bg-dam-beige">
@@ -287,6 +290,7 @@ export default function MarkhPage() {
                 {copy.heroBadge}
               </p>
               <TextAnimate
+                {...textLocaleProps}
                 as="p"
                 by="word"
                 animation="blurInUp"
@@ -296,6 +300,7 @@ export default function MarkhPage() {
                 {copy.eyebrow}
               </TextAnimate>
               <TextAnimate
+                {...textLocaleProps}
                 as="h1"
                 by="word"
                 animation="blurInUp"
@@ -305,15 +310,16 @@ export default function MarkhPage() {
                 {copy.title}
               </TextAnimate>
               <TextAnimate
+                {...textLocaleProps}
                 as="p"
                 by="word"
                 animation="blurInUp"
                 startOnView={false}
-                className="mt-6 max-w-2xl text-base leading-7 text-[#F4EFE6]/85 sm:text-lg sm:leading-8"
+                className={`mt-6 max-w-2xl text-[#F4EFE6]/85 ${lang === "ar" ? descriptionTextClass : "text-base leading-7 sm:text-lg sm:leading-8"}`}
               >
                 {copy.subtitle}
               </TextAnimate>
-              <TextAnimate as="p" by="word" animation="blurInUp" className="mt-5 max-w-2xl text-sm leading-7 text-[#F4EFE6]/72 sm:text-base sm:leading-8">
+              <TextAnimate {...textLocaleProps} as="p" by="word" animation="blurInUp" className={`mt-5 max-w-2xl text-white sm:text-base sm:leading-8 ${lang === "ar" ? descriptionTextClass : "text-sm leading-7"}`}>
                 {copy.heroCaption}
               </TextAnimate>
 
@@ -337,7 +343,7 @@ export default function MarkhPage() {
               <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#F7D2B2]">
                 {copy.heroPanelLabel}
               </p>
-              <TextAnimate as="h2" by="word" animation="blurInUp" className="mt-4 premium-font text-2xl text-[#F4EFE6] md:text-3xl">
+              <TextAnimate {...textLocaleProps} as="h2" by="word" animation="blurInUp" className="mt-4 premium-font text-2xl text-[#F4EFE6] md:text-3xl">
                 {copy.heroPanelTitle}
               </TextAnimate>
               <div className="mt-6 grid gap-3">
@@ -374,10 +380,10 @@ export default function MarkhPage() {
             <TextAnimate as="h2" by="word" animation="blurInUp" className="mt-4 premium-font text-3xl text-[#282328] md:text-5xl">
               {copy.introTitle}
             </TextAnimate>
-            <TextAnimate as="p" by="word" animation="blurInUp" className="mt-5 text-sm leading-8 text-[#282328]/76 md:text-base">
+            <TextAnimate as="p" by="word" animation="blurInUp" className={`mt-5 text-[#282328]/76 ${lang === "ar" ? descriptionTextClass : "text-sm leading-8 md:text-base"}`}>
               {copy.introBody}
             </TextAnimate>
-            <TextAnimate as="p" by="word" animation="blurInUp" className="mt-5 max-w-2xl text-sm leading-8 text-[#282328]/68 md:text-base">
+            <TextAnimate as="p" by="word" animation="blurInUp" className={`mt-5 max-w-2xl text-[#282328]/68 ${lang === "ar" ? descriptionTextClass : "text-sm leading-8 md:text-base"}`}>
               {copy.introAccent}
             </TextAnimate>
           </article>
@@ -407,7 +413,7 @@ export default function MarkhPage() {
             <TextAnimate as="h2" by="word" animation="blurInUp" className="mt-4 premium-font text-3xl text-[#282328] md:text-5xl">
               {copy.settingTitle}
             </TextAnimate>
-            <TextAnimate as="p" by="word" animation="blurInUp" className="mt-5 max-w-3xl text-sm leading-8 text-[#282328]/76 md:text-base">
+            <TextAnimate as="p" by="word" animation="blurInUp" className={`mt-5 max-w-3xl text-[#282328]/76 ${lang === "ar" ? descriptionTextClass : "text-sm leading-8 md:text-base"}`}>
               {copy.settingBody}
             </TextAnimate>
           </div>
@@ -427,7 +433,7 @@ export default function MarkhPage() {
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(23,20,23,0.08),rgba(23,20,23,0.18)_56%,rgba(23,20,23,0.55)_100%)]" />
               <div className="absolute inset-x-5 bottom-5 rounded-[1.5rem] border border-white/12 bg-[#1f1714]/45 p-5 text-[#F4EFE6] backdrop-blur-xl sm:inset-x-6 sm:bottom-6 sm:p-6">
                 <p className="text-xs font-bold uppercase tracking-[0.28em] text-[#F7D2B2]">{copy.settingImageLabel}</p>
-                <TextAnimate as="p" by="word" animation="blurInUp" className="mt-4 text-sm leading-7 text-[#F4EFE6]/78 sm:text-base sm:leading-8">
+                <TextAnimate as="p" by="word" animation="blurInUp" className={`mt-4 text-[#F4EFE6]/78 ${lang === "ar" ? descriptionTextClass : "text-sm leading-7 sm:text-base sm:leading-8"}`}>
                   {copy.settingImageBody}
                 </TextAnimate>
               </div>
@@ -478,7 +484,7 @@ export default function MarkhPage() {
             <TextAnimate as="h2" by="word" animation="blurInUp" className="mt-5 premium-font text-3xl text-[#282328] md:text-4xl">
               {copy.overviewTitle}
             </TextAnimate>
-            <TextAnimate as="p" by="word" animation="blurInUp" className="mt-5 text-sm leading-8 text-[#282328]/76 md:text-base">
+            <TextAnimate as="p" by="word" animation="blurInUp" className={`mt-5 text-[#282328]/76 ${lang === "ar" ? descriptionTextClass : "text-sm leading-8 md:text-base"}`}>
               {copy.overviewBody}
             </TextAnimate>
           </article>
@@ -512,7 +518,7 @@ export default function MarkhPage() {
             <TextAnimate as="h2" by="word" animation="blurInUp" className="mt-4 premium-font text-3xl text-[#F4EFE6] md:text-5xl">
               {copy.motionTitle}
             </TextAnimate>
-            <TextAnimate as="p" by="word" animation="blurInUp" className="mt-5 max-w-3xl text-sm leading-8 text-[#F4EFE6]/76 md:text-base">
+            <TextAnimate as="p" by="word" animation="blurInUp" className={`mt-5 max-w-3xl text-[#F4EFE6]/76 ${lang === "ar" ? descriptionTextClass : "text-sm leading-8 md:text-base"}`}>
               {copy.motionBody}
             </TextAnimate>
           </div>
@@ -594,7 +600,7 @@ export default function MarkhPage() {
               <TextAnimate as="h2" by="word" animation="blurInUp" className="mt-5 premium-font text-3xl text-[#282328] md:text-4xl">
                 {copy.signatureTitle}
               </TextAnimate>
-              <TextAnimate as="p" by="word" animation="blurInUp" className="mt-5 text-sm leading-8 text-[#282328]/76 md:text-base">
+              <TextAnimate as="p" by="word" animation="blurInUp" className={`mt-5 text-[#282328]/76 ${lang === "ar" ? descriptionTextClass : "text-sm leading-8 md:text-base"}`}>
                 {copy.signatureBody}
               </TextAnimate>
 
@@ -619,7 +625,7 @@ export default function MarkhPage() {
             <TextAnimate as="h2" by="word" animation="blurInUp" className="mt-4 premium-font text-3xl text-[#282328] md:text-4xl">
               {copy.visitLabel}
             </TextAnimate>
-            <TextAnimate as="p" by="word" animation="blurInUp" className="mt-5 max-w-2xl text-sm leading-8 text-[#282328]/76 md:text-base">
+            <TextAnimate as="p" by="word" animation="blurInUp" className={`mt-5 max-w-2xl text-[#282328]/76 ${lang === "ar" ? descriptionTextClass : "text-sm leading-8 md:text-base"}`}>
               {copy.visitBody}
             </TextAnimate>
 

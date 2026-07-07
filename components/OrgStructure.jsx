@@ -498,11 +498,6 @@ export default function OrgStructure({ t }) {
     };
   }, [isMobile, nodes, reactFlowInstance]);
 
-  const subtitle =
-    t.dir === "rtl"
-      ? "هيكل حوكمة راقٍ صُمم لدعم تنويع الاستثمارات، والتميز التشغيلي، وبناء قيمة طويلة الأمد."
-      : "A premium structure designed to support investment diversification, operational excellence, and long-term value creation.";
-
   if (isMobile) {
     return (
       <section id="org-structure" className="scroll-mt-24 bg-[#E6DCC8] py-20">
@@ -511,7 +506,7 @@ export default function OrgStructure({ t }) {
             <div className="relative mx-auto mb-6 h-28 w-44">
               <Image
                 src="/images/logodam.png"
-                alt="DAM Group Holding logo"
+                alt={t.org.logoAlt}
                 fill
                 sizes="176px"
                 className="object-contain"
@@ -522,6 +517,8 @@ export default function OrgStructure({ t }) {
               as="h2"
               by="word"
               animation="blurInUp"
+              dir={t.dir}
+              locale={t.langLabel}
               once
               className="text-4xl font-bold text-[#282328]"
             >
@@ -571,7 +568,7 @@ export default function OrgStructure({ t }) {
           <div className="relative mx-auto mb-8 h-36 w-56 md:h-40 md:w-64">
             <Image
               src="/images/logodam.png"
-              alt="DAM Group Holding logo"
+              alt={t.org.logoAlt}
               fill
               sizes="256px"
               className="object-contain"
@@ -582,6 +579,8 @@ export default function OrgStructure({ t }) {
             as="p"
             by="word"
             animation="blurInUp"
+            dir={t.dir}
+            locale={t.langLabel}
             once
             className="text-sm font-semibold uppercase tracking-[0.35em] text-[#9B6F4C]"
           >
@@ -592,20 +591,24 @@ export default function OrgStructure({ t }) {
             as="h2"
             by="word"
             animation="blurInUp"
+            dir={t.dir}
+            locale={t.langLabel}
             once
             className="mt-4 text-4xl font-bold text-[#282328] md:text-6xl"
           >
-            {t.dir === "rtl" ? "خريطة الحوكمة التنفيذية" : "Executive Governance Map"}
+            {t.org.executiveMapTitle}
           </TextAnimate>
 
           <TextAnimate
             as="p"
             by="word"
             animation="blurInUp"
+            dir={t.dir}
+            locale={t.langLabel}
             once
             className="mx-auto mt-5 max-w-3xl text-base leading-8 text-[#282328]/75"
           >
-            {subtitle}
+            {t.org.executiveMapSubtitle}
           </TextAnimate>
         </div>
 
