@@ -9,8 +9,8 @@ export const content = {
       { label: "2030 Vision", href: "#vision-2030" },
       { label: "Mission & Values", href: "#mission-values" },
       { label: "Sectors", href: "#sectors" },
+      { label: "Company Structure", href: "#company-structure" },
       { label: "Company Details", href: "#company-details" },
-      { label: "Organizational Structure", href: "#org-structure" },
       { label: "News", href: "/news" },
     ],
     hero: {
@@ -19,11 +19,11 @@ export const content = {
       subtitle: "Dam... Because Impact Endures",
       logoAlt: "DAM Group Holding logo",
       body:
-        "In the midst of a pivotal historical moment in the Kingdom of Saudi Arabia under Vision 2030, Dam Group Holding was born in 2018 as a firm investment pillar combining ambition and professionalism. The group launched with the First Lawyer Company in law and legal advisory, and achievements followed successively. It then expanded into real estate, food, hospitality, contracting, and automotive sectors.",
+        "In the midst of a pivotal historical moment in the Kingdom of Saudi Arabia under Vision 2030, Dam Group Holding was born in 2023 as a firm investment pillar combining ambition and professionalism. The group launched with the First Lawyer Company in law and legal advisory, and achievements followed successively. It then expanded into real estate, food, hospitality, contracting, and automotive sectors.",
       primaryCta: "Explore Sectors",
       secondaryCta: "Our Story",
       stats: [
-        ["Founded", "2018"],
+        ["Founded", "2023"],
         ["Headquarters", "Riyadh, Saudi Arabia"],
         ["Sectors", "6+"],
         ["Vision", "2030 aligned"],
@@ -42,7 +42,7 @@ export const content = {
       body:
         "Dam Group Holding is the parent company of commercial companies seeking to compete in local and global markets and make a difference across several fields. Its headquarters is located in Riyadh, Saudi Arabia. It is headed by His Excellency Dr. Ibrahim bin Abdul Karim Al-Salloum, who from day one set a clear strategic vision: diversify investment and build real generational value.",
       metrics: ["Strategic governance", "Investment discipline", "Generational value"],
-      panelYear: "2018",
+      panelYear: "2023",
       panelBody: "A Riyadh-born investment platform with a disciplined multi-sector mandate.",
     },
     overview: {
@@ -130,7 +130,7 @@ export const content = {
       title: "Company Details",
       rows: [
         ["Company Name", "DAM GROUP HOLDING"],
-        ["Founded", "2018"],
+        ["Founded", "2023"],
         ["Headquarters", "Riyadh, Saudi Arabia"],
         ["Business Type", "Holding / Investment Group"],
         ["Strategic Direction", "Investment diversification and generational value"],
@@ -138,23 +138,9 @@ export const content = {
         ["Main Sectors", "Automotive, Real Estate, Food, Hospitality, Contracting, Legal"],
       ],
     },
-    org: {
-      title: "Organizational Structure",
-      logoAlt: "DAM Group Holding logo",
-      executiveMapTitle: "Executive Governance Map",
-      executiveMapSubtitle:
-        "A premium structure designed to support investment diversification, operational excellence, and long-term value creation.",
-      board: "Board of Directors",
-      boardUnits: ["Investment Unit", "Strategic Transformation Unit", "Internal Audit Unit"],
-      ceo: "CEO",
-      ceoUnits: ["Deputy CEO", "CEO Office Assistant", "Business Development Unit", "Operations Unit"],
-      departments: [
-        ["Finance Department", "Accounting & Reporting Unit", "Financing & Treasury Unit", "Financial Analysis & Budgeting Unit"],
-        ["IT Department", "IT Unit"],
-        ["HR Department", "HR Unit", "Administrative Services Unit"],
-        ["Marketing Department", "Marketing Unit", "Corporate Communication Unit"],
-        ["Customer Experience Department", "Customer Experience Unit"],
-      ],
+    companyStructure: {
+      kicker: "Governance",
+      title: "Dam Holding",
     },
     unwanAidiyafa: {
       backLabel: "Back To Sectors",
@@ -354,8 +340,8 @@ export const content = {
       { label: "رؤية 2030", href: "#vision-2030" },
       { label: "الرسالة والقيم", href: "#mission-values" },
       { label: "القطاعات", href: "#sectors" },
+      { label: "الهيكل التنظيمي", href: "#company-structure" },
       { label: "تفاصيل الشركة", href: "#company-details" },
-      { label: "الهيكل التنظيمي", href: "#org-structure" },
       { label: "الأخبار", href: "/news" },
     ],
     hero: {
@@ -364,11 +350,11 @@ export const content = {
       subtitle: "دام... لأن الأثر يدوم",
       logoAlt: "شعار مجموعة دام القابضة",
       body:
-        "في خضم مرحلة تاريخية فارقة تشهدها المملكة العربية السعودية في ظل رؤية 2030، ولدت مجموعة دام القابضة عام 2018 لتكون ركيزة استثمارية راسخة تجمع بين الطموح والمهنية. انطلقت المجموعة مع شركة المحامي الأول في مجال القانون والاستشارات القانونية، ثم توسعت إلى قطاعات العقارات، والأغذية، والضيافة، والمقاولات، والسيارات.",
+        "في خضم مرحلة تاريخية فارقة تشهدها المملكة العربية السعودية في ظل رؤية 2030، ولدت مجموعة دام القابضة عام 2023 لتكون ركيزة استثمارية راسخة تجمع بين الطموح والمهنية. انطلقت المجموعة مع شركة المحامي الأول في مجال القانون والاستشارات القانونية، ثم توسعت إلى قطاعات العقارات، والأغذية، والضيافة، والمقاولات، والسيارات.",
       primaryCta: "استكشف القطاعات",
       secondaryCta: "قصتنا",
       stats: [
-        ["التأسيس", "2018"],
+        ["التأسيس", "2023"],
         ["المقر", "الرياض، السعودية"],
         ["القطاعات", "+6"],
         ["الرؤية", "متوافقة مع 2030"],
@@ -384,7 +370,7 @@ export const content = {
       body:
         "مجموعة دام القابضة هي الشركة الأم لشركات تجارية تسعى إلى المنافسة في السوق المحلي والعالمي وإحداث فارق حقيقي في قطاعات متعددة. يقع مقرها الرئيسي في مدينة الرياض بالمملكة العربية السعودية، برئاسة معالي الدكتور إبراهيم بن عبد الكريم السلوم، الذي وضع منذ اليوم الأول رؤية استراتيجية واضحة تقوم على تنويع الاستثمار وبناء قيمة حقيقية تمتد عبر الأجيال.",
       metrics: ["حوكمة استراتيجية", "انضباط استثماري", "قيمة عبر الأجيال"],
-      panelYear: "2018",
+      panelYear: "2023",
       panelBody: "منصة استثمارية انطلقت من الرياض برؤية منضبطة ونهج متعدد القطاعات.",
     },
     overview: {
@@ -471,7 +457,7 @@ export const content = {
       title: "تفاصيل الشركة",
       rows: [
         ["اسم الشركة", "مجموعة دام القابضة"],
-        ["التأسيس", "2018"],
+        ["التأسيس", "2023"],
         ["المقر الرئيسي", "الرياض، المملكة العربية السعودية"],
         ["نوع النشاط", "مجموعة قابضة / استثمارية"],
         ["التوجه الاستراتيجي", "تنويع الاستثمار وبناء قيمة عبر الأجيال"],
@@ -479,23 +465,9 @@ export const content = {
         ["القطاعات الرئيسية", "السيارات، العقارات، الأغذية، الضيافة، المقاولات، القانون"],
       ],
     },
-    org: {
-      title: "الهيكل التنظيمي",
-      logoAlt: "شعار مجموعة دام القابضة",
-      executiveMapTitle: "خريطة الحوكمة التنفيذية",
-      executiveMapSubtitle:
-        "هيكل حوكمة راقٍ صمم لدعم تنويع الاستثمارات، والتميز التشغيلي، وبناء قيمة طويلة الأمد.",
-      board: "مجلس الإدارة",
-      boardUnits: ["وحدة الاستثمار", "وحدة التحول الاستراتيجي", "وحدة المراجعة الداخلية"],
-      ceo: "الرئيس التنفيذي",
-      ceoUnits: ["نائب الرئيس التنفيذي", "مساعد مكتب الرئيس التنفيذي", "وحدة تطوير الأعمال", "وحدة العمليات"],
-      departments: [
-        ["الإدارة المالية", "وحدة المحاسبة والتقارير", "وحدة التمويل والخزينة", "وحدة التحليل والموازنات المالية"],
-        ["إدارة تقنية المعلومات", "وحدة تقنية المعلومات"],
-        ["إدارة الموارد البشرية", "وحدة الموارد البشرية", "وحدة الخدمات الإدارية"],
-        ["إدارة التسويق", "وحدة التسويق", "وحدة الاتصال المؤسسي"],
-        ["إدارة تجربة العميل", "وحدة تجربة العميل"],
-      ],
+    companyStructure: {
+      kicker: "الحوكمة",
+      title: "دام القابضة",
     },
     unwanAidiyafa: {
       backLabel: "العودة إلى القطاعات",

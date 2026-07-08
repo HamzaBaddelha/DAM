@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import AboutSection from "../components/AboutSection";
 import CompanyDetails from "../components/CompanyDetails";
+import CompanyStructureFlow from "../components/CompanyStructureFlow";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 import MissionValues from "../components/MissionValues";
 import Navbar from "../components/Navbar";
-import OrgStructure from "../components/OrgStructure";
 import OverviewSection from "../components/OverviewSection";
 import QuoteSection from "../components/QuoteSection";
 import Sectors from "../components/Sectors";
@@ -33,8 +33,8 @@ export default function HomePage() {
       <Vision2030 t={t} />
       <MissionValues t={t} />
       <Sectors t={t} />
+      <CompanyStructureFlow t={t} />
       <CompanyDetails t={t} />
-      <OrgStructure t={t} />
       <Footer t={t} />
     </main>
   );
