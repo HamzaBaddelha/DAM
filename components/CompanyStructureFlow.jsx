@@ -379,7 +379,7 @@ export default function CompanyStructureFlow({ t }) {
               zoomOnDoubleClick={false}
               preventScrolling={false}
               proOptions={{ hideAttribution: true }}
-              className="dam-org-flow bg-transparent"
+              className={`dam-org-flow bg-transparent${isCompact ? " dam-org-flow-compact" : ""}`}
             >
               <Background color="rgba(154,122,79,0.12)" gap={96} size={0.5} />
               <Controls
@@ -421,6 +421,19 @@ export default function CompanyStructureFlow({ t }) {
 
         .dam-org-flow .react-flow__pane {
           cursor: default;
+        }
+
+        .dam-org-flow-compact,
+        .dam-org-flow-compact .react-flow__renderer,
+        .dam-org-flow-compact .react-flow__viewport,
+        .dam-org-flow-compact .react-flow__pane,
+        .dam-org-flow-compact .react-flow__nodes,
+        .dam-org-flow-compact .react-flow__edges {
+          pointer-events: none;
+        }
+
+        .dam-org-scroll-compact {
+          touch-action: pan-x pan-y;
         }
 
         .dam-org-flow .react-flow__edge.animated .react-flow__edge-path {
