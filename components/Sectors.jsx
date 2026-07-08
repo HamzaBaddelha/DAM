@@ -22,7 +22,7 @@ const textVariants = {
 };
 
 const sectorAssets = [
-  { image: "/images/luxuryvec.png", href: "/luxury-vehicles", hasLuxuryWatermark: true },
+  { image: "/images/luxuryvec-hero2.png", href: "/luxury-vehicles", hasLuxuryWatermark: true },
   { image: "/images/shatbah.png", href: "#company-details" },
   { image: "/images/maaqed.png", href: "#company-details" },
   { image: "/images/mohami.png", href: "#company-details" },

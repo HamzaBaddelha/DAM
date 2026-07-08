@@ -127,7 +127,7 @@ const galleryImages = [
 const valueCardIcons = [Star, ShieldCheck, Leaf, Headset];
 
 export default function LuxuryVehiclesPage() {
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState("ar");
   const t = content[lang];
   const copy = pageCopy[lang];
 

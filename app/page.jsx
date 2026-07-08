@@ -15,7 +15,7 @@ import Vision2030 from "../components/Vision2030";
 import { content } from "../data/content";
 
 export default function HomePage() {
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState("ar");
   const t = content[lang];
 
   useEffect(() => {

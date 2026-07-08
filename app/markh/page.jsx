@@ -191,7 +191,7 @@ const motionVideos = [
 ];
 
 export default function MarkhPage() {
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState("ar");
   const t = content[lang];
   const copy = pageCopy[lang];
   const textLocaleProps = { dir: t.dir, locale: lang };

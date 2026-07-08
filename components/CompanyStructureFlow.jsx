@@ -13,6 +13,7 @@ const boardUnits = [
 const departments = [
   {
     title: "الإدارة المالية",
+    reportsToBoard: true,
     units: [
       "وحدة المحاسبة والتقارير",
       "وحدة التمويل والخزينة",
@@ -37,9 +38,12 @@ const departments = [
   },
   {
     title: "الإدارة القانونية",
+    reportsToBoard: true,
     units: ["الوحدة القانونية"],
   },
 ];
+
+const getDepartmentId = (index) => `department-${index + 1}`;
 
 function createDesktopNodes() {
   return [
@@ -80,7 +84,7 @@ function createDesktopNodes() {
       data: { label: "نائب الرئيس التنفيذي", variant: "executive", width: 250, size: "desktop" },
     },
     ...departments.map((department, index) => ({
-      id: `department-${index + 1}`,
+      id: getDepartmentId(index),
       type: "damOrgNode",
       position: { x: 20 + index * 215, y: 390 },
       targetPosition: Position.Top,
@@ -143,7 +147,7 @@ function createTabletNodes() {
       data: { label: "نائب الرئيس التنفيذي", variant: "executive", width: 260, size: "tablet" },
     },
     ...departments.map((department, index) => ({
-      id: `department-${index + 1}`,
+      id: getDepartmentId(index),
       type: "damOrgNode",
       position: departmentPositions[index],
       targetPosition: Position.Top,
@@ -176,7 +180,7 @@ function createMobileNodes() {
       width: 260,
     },
     ...departments.map((department, index) => ({
-      id: `department-${index + 1}`,
+      id: getDepartmentId(index),
       label: department.title,
       units: department.units,
       variant: "department",
@@ -204,9 +208,14 @@ function createMobileEdges() {
   const orderedIds = [
     "board",
     ...boardUnits.map((_, index) => `board-unit-${index + 1}`),
+    ...departments.flatMap((department, index) =>
+      department.reportsToBoard ? [getDepartmentId(index)] : []
+    ),
     "ceo",
     "deputy-ceo",
-    ...departments.map((_, index) => `department-${index + 1}`),
+    ...departments.flatMap((department, index) =>
+      department.reportsToBoard ? [] : [getDepartmentId(index)]
+    ),
   ];
 
   return orderedIds.slice(0, -1).map((source, index) => ({
@@ -228,13 +237,31 @@ const desktopTabletEdges = [
     type: "smoothstep",
   })),
   { id: "board-to-ceo", source: "board", target: "ceo", type: "smoothstep" },
+  ...departments.flatMap((department, index) =>
+    department.reportsToBoard
+      ? [
+          {
+            id: `board-to-department-${index + 1}`,
+            source: "board",
+            target: getDepartmentId(index),
+            type: "smoothstep",
+          },
+        ]
+      : []
+  ),
   { id: "ceo-to-deputy", source: "ceo", target: "deputy-ceo", type: "smoothstep" },
-  ...departments.map((_, index) => ({
-    id: `deputy-to-department-${index + 1}`,
-    source: "deputy-ceo",
-    target: `department-${index + 1}`,
-    type: "smoothstep",
-  })),
+  ...departments.flatMap((department, index) =>
+    department.reportsToBoard
+      ? []
+      : [
+          {
+            id: `deputy-to-department-${index + 1}`,
+            source: "deputy-ceo",
+            target: getDepartmentId(index),
+            type: "smoothstep",
+          },
+        ]
+  ),
 ].map((edge) => ({
   ...edge,
   animated: true,

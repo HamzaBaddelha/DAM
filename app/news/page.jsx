@@ -120,7 +120,7 @@ const pageCopy = {
 };
 
 export default function NewsPage() {
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState("ar");
   const t = content[lang];
   const copy = pageCopy[lang];
 

@@ -42,7 +42,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${projectEnglishFont.variable} ${projectArabicFont.variable}`}>
+    <html lang="ar" dir="rtl" className={`${projectEnglishFont.variable} ${projectArabicFont.variable}`}>
       <body>{children}</body>
     </html>
   );

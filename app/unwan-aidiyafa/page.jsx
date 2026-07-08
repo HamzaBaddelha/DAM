@@ -112,7 +112,7 @@ const amenityIcons = [
 ];
 
 export default function UnwanAidiyafaPage() {
-  const [lang, setLang] = useState("en");
+  const [lang, setLang] = useState("ar");
   const t = content[lang];
   const copy = t.unwanAidiyafa;
   const isArabic = lang === "ar";
