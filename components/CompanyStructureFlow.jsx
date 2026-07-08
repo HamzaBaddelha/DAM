@@ -41,53 +41,186 @@ const departments = [
   },
 ];
 
-const nodes = [
-  {
-    id: "board",
-    type: "damOrgNode",
-    position: { x: 565, y: 15 },
-    sourcePosition: Position.Bottom,
-    data: { label: "مجلس الإدارة", variant: "executive", width: 190 },
-  },
-  ...boardUnits.map((label, index) => ({
-    id: `board-unit-${index + 1}`,
-    type: "damOrgNode",
-    position: { x: [250, 540, 845][index], y: 110 },
-    sourcePosition: Position.Bottom,
-    targetPosition: Position.Top,
-    data: { label, variant: "unit", width: index === 1 ? 240 : 210 },
-  })),
-  {
-    id: "ceo",
-    type: "damOrgNode",
-    position: { x: 570, y: 205 },
-    sourcePosition: Position.Bottom,
-    targetPosition: Position.Top,
-    data: { label: "الرئيس التنفيذي", variant: "executive", width: 180 },
-  },
-  {
-    id: "deputy-ceo",
-    type: "damOrgNode",
-    position: { x: 535, y: 295 },
-    sourcePosition: Position.Bottom,
-    targetPosition: Position.Top,
-    data: { label: "نائب الرئيس التنفيذي", variant: "executive", width: 250 },
-  },
-  ...departments.map((department, index) => ({
-    id: `department-${index + 1}`,
-    type: "damOrgNode",
-    position: { x: 20 + index * 215, y: 390 },
-    targetPosition: Position.Top,
-    data: {
+function createDesktopNodes() {
+  return [
+    {
+      id: "board",
+      type: "damOrgNode",
+      position: { x: 565, y: 15 },
+      sourcePosition: Position.Bottom,
+      data: { label: "مجلس الإدارة", variant: "executive", width: 190, size: "desktop" },
+    },
+    ...boardUnits.map((label, index) => ({
+      id: `board-unit-${index + 1}`,
+      type: "damOrgNode",
+      position: { x: [250, 540, 845][index], y: 110 },
+      sourcePosition: Position.Bottom,
+      targetPosition: Position.Top,
+      data: {
+        label,
+        variant: "unit",
+        width: index === 1 ? 240 : 210,
+        size: "desktop",
+      },
+    })),
+    {
+      id: "ceo",
+      type: "damOrgNode",
+      position: { x: 570, y: 205 },
+      sourcePosition: Position.Bottom,
+      targetPosition: Position.Top,
+      data: { label: "الرئيس التنفيذي", variant: "executive", width: 180, size: "desktop" },
+    },
+    {
+      id: "deputy-ceo",
+      type: "damOrgNode",
+      position: { x: 535, y: 295 },
+      sourcePosition: Position.Bottom,
+      targetPosition: Position.Top,
+      data: { label: "نائب الرئيس التنفيذي", variant: "executive", width: 250, size: "desktop" },
+    },
+    ...departments.map((department, index) => ({
+      id: `department-${index + 1}`,
+      type: "damOrgNode",
+      position: { x: 20 + index * 215, y: 390 },
+      targetPosition: Position.Top,
+      data: {
+        label: department.title,
+        units: department.units,
+        variant: "department",
+        width: 205,
+        size: "desktop",
+      },
+    })),
+  ];
+}
+
+function createTabletNodes() {
+  const departmentPositions = [
+    { x: 20, y: 460 },
+    { x: 280, y: 460 },
+    { x: 540, y: 460 },
+    { x: 20, y: 655 },
+    { x: 280, y: 655 },
+    { x: 540, y: 655 },
+  ];
+
+  return [
+    {
+      id: "board",
+      type: "damOrgNode",
+      position: { x: 285, y: 20 },
+      sourcePosition: Position.Bottom,
+      data: { label: "مجلس الإدارة", variant: "executive", width: 210, size: "tablet" },
+    },
+    ...boardUnits.map((label, index) => ({
+      id: `board-unit-${index + 1}`,
+      type: "damOrgNode",
+      position: { x: [20, 280, 540][index], y: 125 },
+      sourcePosition: Position.Bottom,
+      targetPosition: Position.Top,
+      data: {
+        label,
+        variant: "unit",
+        width: index === 1 ? 220 : 200,
+        size: "tablet",
+      },
+    })),
+    {
+      id: "ceo",
+      type: "damOrgNode",
+      position: { x: 300, y: 255 },
+      sourcePosition: Position.Bottom,
+      targetPosition: Position.Top,
+      data: { label: "الرئيس التنفيذي", variant: "executive", width: 190, size: "tablet" },
+    },
+    {
+      id: "deputy-ceo",
+      type: "damOrgNode",
+      position: { x: 265, y: 350 },
+      sourcePosition: Position.Bottom,
+      targetPosition: Position.Top,
+      data: { label: "نائب الرئيس التنفيذي", variant: "executive", width: 260, size: "tablet" },
+    },
+    ...departments.map((department, index) => ({
+      id: `department-${index + 1}`,
+      type: "damOrgNode",
+      position: departmentPositions[index],
+      targetPosition: Position.Top,
+      data: {
+        label: department.title,
+        units: department.units,
+        variant: "department",
+        width: 220,
+        size: "tablet",
+      },
+    })),
+  ];
+}
+
+function createMobileNodes() {
+  const centerX = 32;
+  const steps = [
+    { id: "board", label: "مجلس الإدارة", variant: "executive", width: 260 },
+    ...boardUnits.map((label, index) => ({
+      id: `board-unit-${index + 1}`,
+      label,
+      variant: "unit",
+      width: 260,
+    })),
+    { id: "ceo", label: "الرئيس التنفيذي", variant: "executive", width: 260 },
+    {
+      id: "deputy-ceo",
+      label: "نائب الرئيس التنفيذي",
+      variant: "executive",
+      width: 260,
+    },
+    ...departments.map((department, index) => ({
+      id: `department-${index + 1}`,
       label: department.title,
       units: department.units,
       variant: "department",
-      width: 205,
-    },
-  })),
-];
+      width: 260,
+    })),
+  ];
 
-const edges = [
+  return steps.map((step, index) => ({
+      id: step.id,
+      type: "damOrgNode",
+      position: { x: centerX, y: 18 + index * 140 },
+      sourcePosition: Position.Bottom,
+      targetPosition: Position.Top,
+      data: {
+        label: step.label,
+        units: step.units,
+        variant: step.variant,
+        width: step.width,
+        size: "mobile",
+      },
+    }));
+}
+
+function createMobileEdges() {
+  const orderedIds = [
+    "board",
+    ...boardUnits.map((_, index) => `board-unit-${index + 1}`),
+    "ceo",
+    "deputy-ceo",
+    ...departments.map((_, index) => `department-${index + 1}`),
+  ];
+
+  return orderedIds.slice(0, -1).map((source, index) => ({
+    id: `mobile-edge-${source}-${orderedIds[index + 1]}`,
+    source,
+    target: orderedIds[index + 1],
+    type: "smoothstep",
+    animated: true,
+    style: { stroke: "#9a7a4f", strokeWidth: 1.75 },
+    pathOptions: { borderRadius: 8 },
+  }));
+}
+
+const desktopTabletEdges = [
   ...boardUnits.map((_, index) => ({
     id: `board-to-unit-${index + 1}`,
     source: "board",
@@ -116,11 +249,14 @@ const nodeTypes = {
 function DamOrgNode({ data }) {
   const isDepartment = data.variant === "department";
   const isExecutive = data.variant === "executive";
+  const isMobile = data.size === "mobile";
+  const isTablet = data.size === "tablet";
 
   return (
     <div
       className={[
         "dam-org-node rounded-md border text-center text-[#211d1b] shadow-[0_10px_24px_rgba(60,43,25,0.07)]",
+        isMobile ? "rounded-lg" : "",
         isDepartment
           ? "dam-org-node-main border-[#9B6F4C]/55 bg-[#ead8ae]"
           : "dam-org-node-unit border-[#9B6F4C]/40 bg-[#f7efe3]",
@@ -135,18 +271,32 @@ function DamOrgNode({ data }) {
       />
       <div
         className={[
-          "px-3 py-2.5 text-sm leading-5",
+          isMobile
+            ? "px-4 py-3 text-[13px] leading-5"
+            : isTablet
+              ? "px-3.5 py-3 text-[13px] leading-5"
+              : "px-3 py-2.5 text-sm leading-5",
           isExecutive || isDepartment ? "font-bold" : "font-semibold",
         ].join(" ")}
       >
         {data.label}
       </div>
       {isDepartment ? (
-        <div className="space-y-2 border-t border-[#9B6F4C]/35 bg-[#f8f2e8] px-3 py-2.5">
+        <div
+          className={[
+            "space-y-2 border-t border-[#9B6F4C]/35 bg-[#f8f2e8]",
+            isMobile ? "px-3.5 py-3" : "px-3 py-2.5",
+          ].join(" ")}
+        >
           {data.units.map((unit) => (
             <div
               key={unit}
-              className="rounded-sm border border-[#9B6F4C]/20 bg-[#fffaf2] px-2 py-1.5 text-[12px] font-medium leading-4 text-[#3a3029]"
+              className={[
+                "border border-[#9B6F4C]/20 bg-[#fffaf2] font-medium text-[#3a3029]",
+                isMobile
+                  ? "rounded-md px-2.5 py-2 text-[12px] leading-[1.45]"
+                  : "rounded-sm px-2 py-1.5 text-[12px] leading-4",
+              ].join(" ")}
             >
               {unit}
             </div>
@@ -165,9 +315,13 @@ function DamOrgNode({ data }) {
 export default function CompanyStructureFlow({ t }) {
   const scrollRef = useRef(null);
   const [viewportWidth, setViewportWidth] = useState(1320);
-  const isMobile = viewportWidth <= 768;
+  const isMobile = viewportWidth <= 640;
   const isCompact = viewportWidth <= 1024;
-  const chartHeight = isMobile ? 520 : isCompact ? 600 : 660;
+  const layout = isMobile
+    ? { nodes: createMobileNodes(), edges: createMobileEdges(), width: 324, height: 1760 }
+    : isCompact
+      ? { nodes: createTabletNodes(), edges: desktopTabletEdges, width: 780, height: 860 }
+      : { nodes: createDesktopNodes(), edges: desktopTabletEdges, width: 1320, height: 660 };
 
   useEffect(() => {
     const syncViewport = () => {
@@ -205,18 +359,16 @@ export default function CompanyStructureFlow({ t }) {
             className="dam-org-canvas"
             dir="rtl"
             style={{
-              width: isCompact ? "100%" : "1320px",
-              minWidth: isCompact ? "100%" : "1320px",
-              height: `${chartHeight}px`,
+              width: `${layout.width}px`,
+              minWidth: `${layout.width}px`,
+              height: `${layout.height}px`,
             }}
           >
             <ReactFlow
               key={`company-structure-${isCompact ? viewportWidth : "desktop"}`}
-              nodes={nodes}
-              edges={edges}
+              nodes={layout.nodes}
+              edges={layout.edges}
               nodeTypes={nodeTypes}
-              fitView={isCompact}
-              fitViewOptions={{ padding: 0.12 }}
               defaultViewport={{ x: 0, y: 0, zoom: 1 }}
               nodesDraggable={false}
               nodesConnectable={false}
@@ -263,7 +415,8 @@ export default function CompanyStructureFlow({ t }) {
         }
 
         .dam-org-scroll-compact {
-          overflow-x: hidden;
+          justify-content: flex-start;
+          padding-inline: 6px;
         }
 
         .dam-org-flow .react-flow__pane {
@@ -291,7 +444,7 @@ export default function CompanyStructureFlow({ t }) {
 
         @media (max-width: 1024px) {
           .dam-org-canvas {
-            min-width: 100%;
+            flex: 0 0 auto;
           }
         }
       `}</style>

@@ -341,6 +341,13 @@ export default function UnwanAidiyafaPage() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(185,150,104,0.26),transparent_28%),radial-gradient(circle_at_bottom_left,rgba(185,150,104,0.16),transparent_32%)]" />
 
         <div className="relative mx-auto flex min-h-[calc(100svh-6rem)] max-w-7xl flex-col justify-end px-4 pb-10 sm:px-6 md:pb-12 lg:px-8 lg:pb-16">
+          <a
+            href="/#sectors"
+            className="mb-6 inline-flex w-fit rounded-full border border-white/18 bg-white/10 px-4 py-2 text-sm font-semibold text-[#F4EFE6] backdrop-blur-xl transition hover:border-[#E9D3B0] hover:text-[#F7E2C0] md:mb-8"
+          >
+            {copy.backLabel}
+          </a>
+
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(320px,0.62fr)] lg:items-end">
             <div className={sectionAlignClass}>
               <div data-hero-badge>
